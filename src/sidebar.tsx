@@ -11,17 +11,47 @@ import {
 } from '@chakra-ui/react';
 import { Tooltip } from './components/ui/tooltip';
 import {
-  ExploreGPTIcon,
   NewChatIcon,
   SidebarIcon,
   SmallGPTIcon,
   UpgradeIcon,
 } from './icons/sidebar-icons';
-
 import { useSidebarContext } from './sidebar-context';
+import { useConversations } from './conversations-context';
+import { FiTrash2, FiClock } from 'react-icons/fi';
+
+function formatDate(date: Date): string {
+  const now = new Date();
+  const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+  
+  if (diffInHours < 24) {
+    return 'اليوم';
+  } else if (diffInHours < 48) {
+    return 'أمس';
+  } else if (diffInHours < 168) {
+    return `منذ ${Math.floor(diffInHours / 24)} أيام`;
+  } else {
+    return date.toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' });
+  }
+}
 
 export function Sidebar() {
   const { sideBarVisible, toggleSidebar } = useSidebarContext();
+  const {
+    conversations,
+    currentConversation,
+    createNewConversation,
+    deleteConversation,
+    setCurrentConversation,
+  } = useConversations();
+
+  const handleNewChat = () => {
+    createNewConversation(false);
+  };
+
+  const handleNewTemporaryChat = () => {
+    createNewConversation(true);
+  };
 
   return (
     <Box
@@ -33,7 +63,7 @@ export function Sidebar() {
       <Stack h='full' px='3' py='2'>
         <Flex justify='space-between'>
           <Tooltip
-            content='Close sidebar'
+            content='إغلاق الشريط الجانبي'
             positioning={{ placement: 'right' }}
             showArrow
           >
@@ -42,14 +72,14 @@ export function Sidebar() {
             </IconButton>
           </Tooltip>
 
-          <Tooltip content='New chat' showArrow>
-            <IconButton variant='ghost'>
+          <Tooltip content='محادثة جديدة' showArrow>
+            <IconButton variant='ghost' onClick={handleNewChat}>
               <NewChatIcon fontSize='2xl' color='fg.muted' />
             </IconButton>
           </Tooltip>
         </Flex>
 
-        <Stack px='2' gap='0' flex='1'>
+        <Stack px='2' gap='0' flex='1' overflowY='auto'>
           <HStack
             position='relative'
             className='group'
@@ -62,15 +92,15 @@ export function Sidebar() {
             borderRadius='lg'
             w='100%'
             whiteSpace='nowrap'
+            cursor='pointer'
+            onClick={handleNewChat}
           >
-            <Link href='#' variant='plain' _hover={{ textDecor: 'none' }}>
-              <Circle size='6' bg='bg' borderWidth='1px'>
-                <SmallGPTIcon fontSize='md' />
-              </Circle>
-              <Text fontSize='sm' fontWeight='md'>
-                ChatGPT
-              </Text>
-            </Link>
+            <Circle size='6' bg='bg' borderWidth='1px'>
+              <SmallGPTIcon fontSize='md' />
+            </Circle>
+            <Text fontSize='sm' fontWeight='md'>
+              شات جي بي تي
+            </Text>
             <AbsoluteCenter
               axis='vertical'
               right='2'
@@ -78,7 +108,7 @@ export function Sidebar() {
               _groupHover={{ display: 'initial' }}
             >
               <Tooltip
-                content='New chat'
+                content='محادثة جديدة'
                 positioning={{ placement: 'right' }}
                 showArrow
               >
@@ -101,15 +131,73 @@ export function Sidebar() {
             borderRadius='lg'
             w='100%'
             whiteSpace='nowrap'
+            cursor='pointer'
+            onClick={handleNewTemporaryChat}
           >
-            <Link href='#' variant='plain' _hover={{ textDecor: 'none' }}>
-              <ExploreGPTIcon fontSize='md' />
-
-              <Text fontSize='sm' fontWeight='md'>
-                Explore GPTs
-              </Text>
-            </Link>
+            <FiClock fontSize='18px' />
+            <Text fontSize='sm' fontWeight='md'>
+              محادثة مؤقتة
+            </Text>
           </HStack>
+
+          {conversations.length > 0 && (
+            <Box mt='4'>
+              <Text fontSize='xs' fontWeight='bold' color='fg.subtle' px='2' mb='2'>
+                المحادثات السابقة
+              </Text>
+              {conversations.map((conv) => (
+                <HStack
+                  key={conv.id}
+                  position='relative'
+                  className='group'
+                  _hover={{
+                    layerStyle: 'fill.muted',
+                  }}
+                  px='2'
+                  py='2'
+                  borderRadius='lg'
+                  w='100%'
+                  cursor='pointer'
+                  onClick={() => setCurrentConversation(conv.id)}
+                  bg={currentConversation?.id === conv.id ? 'bg' : 'transparent'}
+                  borderWidth={currentConversation?.id === conv.id ? '1px' : '0'}
+                >
+                  <Stack gap='0' flex='1' overflow='hidden'>
+                    <Text fontSize='sm' fontWeight='md' truncate>
+                      {conv.title}
+                      {conv.isTemporary && (
+                        <Text as='span' fontSize='xs' color='orange.500' ml='1'>
+                          (مؤقتة)
+                        </Text>
+                      )}
+                    </Text>
+                    <Text fontSize='xs' color='fg.subtle'>
+                      {formatDate(conv.createdAt)}
+                    </Text>
+                  </Stack>
+                  <AbsoluteCenter
+                    axis='vertical'
+                    right='2'
+                    display='none'
+                    _groupHover={{ display: 'initial' }}
+                  >
+                    <Tooltip content='حذف المحادثة' showArrow>
+                      <IconButton
+                        variant='ghost'
+                        size='xs'
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteConversation(conv.id);
+                        }}
+                      >
+                        <FiTrash2 fontSize='14px' color='red.500' />
+                      </IconButton>
+                    </Tooltip>
+                  </AbsoluteCenter>
+                </HStack>
+              ))}
+            </Box>
+          )}
         </Stack>
 
         <Link
@@ -124,9 +212,9 @@ export function Sidebar() {
               <UpgradeIcon />
             </Circle>
             <Stack gap='0' fontWeight='medium'>
-              <Text fontSize='sm'>Upgrade plan</Text>
+              <Text fontSize='sm'>ترقية الباقة</Text>
               <Text fontSize='xs' color='fg.subtle'>
-                More access to the best models
+                المزيد من الوصول لأفضل النماذج
               </Text>
             </Stack>
           </HStack>

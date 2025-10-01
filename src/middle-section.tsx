@@ -24,9 +24,10 @@ import {
   IllustrationIcon,
   UploadIcon,
 } from './icons/other-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './components/ui/button';
 import { sendChatToGemini, askGemini, type Message } from './lib/gemini';
+import { useConversations } from './conversations-context';
 
 interface PromptButtonProps {
   icon?: React.ReactElement;
@@ -45,34 +46,40 @@ function PromptButton(props: PromptButtonProps) {
 
 export function MiddleSection() {
   const [inputValue, setInputValue] = useState('');
-  const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { currentConversation, updateCurrentConversation, createNewConversation } = useConversations();
+  
+  const messages = currentConversation?.messages || [];
+
+  useEffect(() => {
+    if (!currentConversation) {
+      createNewConversation(false);
+    }
+  }, [currentConversation, createNewConversation]);
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const handleSendMessage = async () => {
-    if (inputValue.trim() === '') return;
+    if (inputValue.trim() === '' || !currentConversation) return;
 
     const userMessage: Message = {
       role: 'user',
       content: inputValue,
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    const updatedMessages = [...messages, userMessage];
+    updateCurrentConversation(updatedMessages);
     setInputValue('');
     setIsLoading(true);
 
     try {
       let response: string;
       
-      // Use grounded search for new conversations or fact-based queries
       if (messages.length === 0) {
         response = await askGemini(inputValue);
       } else {
-        // Use chat history for ongoing conversations
-        const updatedMessages = [...messages, userMessage];
         response = await sendChatToGemini(updatedMessages);
       }
       
@@ -80,14 +87,14 @@ export function MiddleSection() {
         role: 'assistant',
         content: response,
       };
-      setMessages((prev) => [...prev, assistantMessage]);
+      updateCurrentConversation([...updatedMessages, assistantMessage]);
     } catch (error) {
       console.error('Error:', error);
       const errorMessage: Message = {
         role: 'assistant',
         content: 'عذراً، حدث خطأ أثناء الاتصال بـ Gemini API. تأكد من إضافة VITE_GOOGLE_API_KEY.',
       };
-      setMessages((prev) => [...prev, errorMessage]);
+      updateCurrentConversation([...updatedMessages, errorMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -104,7 +111,7 @@ export function MiddleSection() {
     return (
       <Center flex='1'>
         <VStack gap='6'>
-          <Heading size='3xl'>What can I help with?</Heading>
+          <Heading size='3xl'>كيف يمكنني مساعدتك؟</Heading>
           <Center>
             <InputGroup
               minW='768px'
@@ -129,7 +136,7 @@ export function MiddleSection() {
               }
             >
               <Input
-                placeholder='Message ChatGPT'
+                placeholder='أرسل رسالة إلى ChatGPT'
                 variant='subtle'
                 size='lg'
                 borderRadius='3xl'
@@ -143,21 +150,21 @@ export function MiddleSection() {
           <HStack gap='2'>
             <PromptButton
               icon={<IllustrationIcon color='green.500' fontSize='lg' />}
-              description='Create image'
+              description='إنشاء صورة'
             />
             <PromptButton
               icon={<CodeIcon color='blue.500' fontSize='lg' />}
-              description='Code'
+              description='برمجة'
             />
             <PromptButton
               icon={<ChartIcon color='cyan.400' fontSize='lg' />}
-              description='Analyze data'
+              description='تحليل بيانات'
             />
             <PromptButton
               icon={<BirthdayIcon color='cyan.400' fontSize='lg' />}
-              description='Surprise'
+              description='مفاجأة'
             />
-            <PromptButton description='More' />
+            <PromptButton description='المزيد' />
           </HStack>
         </VStack>
       </Center>
@@ -225,7 +232,7 @@ export function MiddleSection() {
             }
           >
             <Input
-              placeholder='Message ChatGPT'
+              placeholder='أرسل رسالة إلى ChatGPT'
               variant='subtle'
               size='lg'
               borderRadius='3xl'

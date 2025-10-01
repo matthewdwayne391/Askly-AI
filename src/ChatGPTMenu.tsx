@@ -15,6 +15,8 @@ import {
   TemporaryChatIcon,
 } from './icons/other-icons';
 import { Switch } from './components/ui/switch';
+import { useConversations } from './conversations-context';
+import { useMemo } from 'react';
 
 interface MenuItemDetailProps {
   icon: React.ReactElement;
@@ -42,6 +44,21 @@ function MenuItemDetail(props: MenuItemDetailProps) {
 }
 
 export const ChatGPTMenu = () => {
+  const { createNewConversation, currentConversation, clearTemporaryConversations } = useConversations();
+
+  const isTemporaryMode = useMemo(() => {
+    return currentConversation?.isTemporary || false;
+  }, [currentConversation]);
+
+  const handleTemporaryToggle = (checked: boolean) => {
+    if (checked) {
+      createNewConversation(true);
+    } else {
+      clearTemporaryConversations();
+      createNewConversation(false);
+    }
+  };
+
   return (
     <MenuRoot>
       <MenuTrigger asChild>
@@ -51,18 +68,18 @@ export const ChatGPTMenu = () => {
           fontWeight='bold'
           color='fg.muted'
         >
-          Chat GPT <MenuIcon />
+          شات جي بي تي <MenuIcon />
         </Button>
       </MenuTrigger>
       <MenuContent minW='320px' borderRadius='2xl'>
         <MenuItem value='chatgpt-plus' py='2'>
           <MenuItemDetail
-            title='ChatGPT Plus'
+            title='شات جي بي تي بلس'
             icon={<ChatGPTPlusIcon />}
-            description='Our smartest model & more'
+            description='النموذج الأذكى والمزيد'
             element={
               <Button variant='outline' size='xs' borderRadius='full'>
-                Upgrade
+                ترقية
               </Button>
             }
           />
@@ -70,9 +87,9 @@ export const ChatGPTMenu = () => {
 
         <MenuItem value='chatgpt' py='2'>
           <MenuItemDetail
-            title='ChatGPT'
+            title='شات جي بي تي'
             icon={<ChatGPTMenuIcon />}
-            description='Great for everyday tasks'
+            description='رائع للمهام اليومية'
             element={<CheckIcon fontSize='lg' />}
           />
         </MenuItem>
@@ -80,9 +97,15 @@ export const ChatGPTMenu = () => {
         <MenuSeparator />
         <MenuItem value='temporary-chat' py='2'>
           <MenuItemDetail
-            title='Temporary chat'
+            title='محادثة مؤقتة'
             icon={<TemporaryChatIcon />}
-            element={<Switch size='sm' />}
+            element={
+              <Switch 
+                size='sm' 
+                checked={isTemporaryMode}
+                onCheckedChange={(e) => handleTemporaryToggle(e.checked)}
+              />
+            }
           />
         </MenuItem>
       </MenuContent>
