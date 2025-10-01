@@ -175,8 +175,10 @@ export function MiddleSection() {
               borderRadius='lg'
               bg={message.role === 'user' ? 'blue.500' : 'gray.700'}
               color='white'
-              alignSelf={message.role === 'user' ? 'flex-end' : 'flex-start'}
+              alignSelf={message.role === 'user' ? 'flex-start' : 'flex-end'}
               maxW='80%'
+              ml={message.role === 'user' ? '0' : 'auto'}
+              mr={message.role === 'user' ? 'auto' : '0'}
             >
               <Text whiteSpace='pre-wrap'>{message.content}</Text>
             </Box>
@@ -187,8 +189,10 @@ export function MiddleSection() {
               borderRadius='lg'
               bg='gray.700'
               color='white'
-              alignSelf='flex-start'
+              alignSelf='flex-end'
               maxW='80%'
+              ml='auto'
+              mr='0'
             >
               <Text>جاري الكتابة...</Text>
             </Box>
