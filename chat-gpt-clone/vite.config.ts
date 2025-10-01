@@ -10,6 +10,7 @@ export default defineConfig({
     port: 5000,
     strictPort: true,
     allowedHosts: 'all',
+    origin: 'http://0.0.0.0:5000',
     hmr: {
       clientPort: 5000,
     },
