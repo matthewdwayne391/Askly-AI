@@ -1,0 +1,55 @@
+Box is not defined
+at TopSection (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/src/top-section.tsx:78:30)
+at renderWithHooks (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:11548:26)
+at mountIndeterminateComponent (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:14926:21)
+at beginWork (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:15914:22)
+at HTMLUnknownElement.callCallback2 (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:3674:22)
+at Object.invokeGuardedCallbackDev (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:3699:24)
+at invokeGuardedCallback (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:3733:39)
+at beginWork$1 (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19765:15)
+at performUnitOfWork (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19198:20)
+at workLoopSync (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19137:13)
+Box is not defined
+at TopSection (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/src/top-section.tsx:78:30)
+at renderWithHooks (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:11548:26)
+at mountIndeterminateComponent (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:14926:21)
+at beginWork (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:15914:22)
+at HTMLUnknownElement.callCallback2 (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:3674:22)
+at Object.invokeGuardedCallbackDev (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:3699:24)
+at invokeGuardedCallback (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:3733:39)
+at beginWork$1 (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19765:15)
+at performUnitOfWork (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19198:20)
+at workLoopSync (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19137:13)
+The above error occurred in the <TopSection> component:
+
+    at TopSection (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/src/top-section.tsx:27:45)
+    at div
+    at https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/@chakra-ui_react.js?v=e9e492a2:1754:46
+    at Stack2 (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/@chakra-ui_react.js?v=e9e492a2:67695:7)
+    at div
+    at https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/@chakra-ui_react.js?v=e9e492a2:1754:46
+    at div
+    at https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/@chakra-ui_react.js?v=e9e492a2:1754:46
+    at Flex2 (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/@chakra-ui_react.js?v=e9e492a2:68532:7)
+    at ConversationsProvider (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/src/conversations-context.tsx:20:41)
+    at SidebarProvider (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/src/sidebar-context.tsx:22:47)
+    at App
+    at O (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/next-themes.js?v=e9e492a2:23:25)
+    at z (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/next-themes.js?v=e9e492a2:21:18)
+    at ColorModeProvider
+    at ChakraProvider (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/@chakra-ui_react.js?v=e9e492a2:2538:18)
+    at Provider (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/src/components/ui/provider.tsx:38:142)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+Box is not defined
+at TopSection (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/src/top-section.tsx:78:30)
+at renderWithHooks (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:11548:26)
+at mountIndeterminateComponent (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:14926:21)
+at beginWork (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:15914:22)
+at beginWork$1 (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19753:22)
+at performUnitOfWork (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19198:20)
+at workLoopSync (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19137:13)
+at renderRootSync (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:19116:15)
+at recoverFromConcurrentError (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:18736:28)
+at performConcurrentWorkOnRoot (https://ef7dbc74-75e7-4c9c-b6c7-fc9a34f50326-00-34ejefxca6v7j.worf.replit.dev/node_modules/.vite/deps/chunk-PJEEZAML.js?v=e9e492a2:18684:30)
