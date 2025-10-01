@@ -67,7 +67,7 @@ export const ChatGPTMenu = () => {
 
         <MenuItem value='chatgpt' py='2'>
           <MenuItemDetail
-            title='شات جي بي تي'
+            title='Askly-AI ميزات'
             icon={<ChatGPTMenuIcon />}
             description='رائع للمهام اليومية'
             element={<CheckIcon fontSize='lg' />}
