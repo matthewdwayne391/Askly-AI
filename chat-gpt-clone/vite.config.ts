@@ -2,17 +2,14 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
-    host: '0.0.0.0',
-    port: 5000,
-    strictPort: true,
-    allowedHosts: 'all',
-    origin: 'http://0.0.0.0:5000',
-    hmr: {
-      clientPort: 5000,
-    },
+    host: true,
+    port: parseInt(process.env.PORT) || 3000,
+    allowedHosts: [
+      // 👇 هنا زيد الدومين تاع Replit
+      "bb2d77f2-b845-4520-b64e-180d6137e0da-00-24hz8srgyes6a.kirk.replit.dev",
+    ],
   },
 });
