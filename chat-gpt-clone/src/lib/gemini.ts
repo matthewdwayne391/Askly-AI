@@ -18,12 +18,26 @@ const groundingTool = {
   googleSearch: {},
 };
 
+// Professional system prompt for organized responses
+const systemPrompt = `أنت مساعد ذكي محترف. اتبع هذه القواعد في جميع إجاباتك:
+
+1. نظم إجاباتك بشكل واضح ومرتب
+2. استخدم الأرقام (1، 2، 3...) لتقسيم النقاط الرئيسية
+3. لا تستخدم النجوم (**) أو التنسيق الغامق في النص
+4. اكتب بطريقة مهنية وواضحة
+5. ابدأ بإجابة مباشرة على السؤال
+6. اذكر التفاصيل المهمة بشكل منظم
+7. اختتم بملخص مفيد إذا كان السؤال معقد
+
+أجب بهذا التنسيق المنظم على جميع الأسئلة.`;
+
 // Updated function with Google Search grounding
 export async function askGemini(query: string): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.5-flash',
-      tools: [groundingTool]
+      tools: [groundingTool],
+      systemInstruction: systemPrompt
     });
     
     const result = await model.generateContent(query);
@@ -39,7 +53,10 @@ export async function askGemini(query: string): Promise<string> {
 
 export async function sendMessageToGemini(message: string): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.5-flash-lite',
+      systemInstruction: systemPrompt
+    });
     
     const result = await model.generateContent(message);
     const response = result.response;
@@ -56,7 +73,8 @@ export async function sendChatToGemini(messages: Message[]): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.5-flash',
-      tools: [groundingTool]
+      tools: [groundingTool],
+      systemInstruction: systemPrompt
     });
     
     const chat = model.startChat({
