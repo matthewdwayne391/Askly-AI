@@ -48,7 +48,7 @@ export const ChatGPTMenu = () => {
           fontWeight='bold'
           color='fg.muted'
         >
-          شات جي بي تي <MenuIcon />
+          Askly-AI ميزات <MenuIcon />
         </Button>
       </MenuTrigger>
       <MenuContent minW='320px' borderRadius='2xl'>
