@@ -1,28 +1,12 @@
 "use client"
 
-import { ChakraProvider, defaultSystem, createSystem } from "@chakra-ui/react"
-import { ColorModeProvider, type ColorModeProviderProps } from "./color-mode"
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { ColorModeProvider } from "./color-mode"
 
-const customSystem = createSystem(defaultSystem, {
-  globalCss: {
-    html: {
-      direction: "rtl",
-      fontFamily: "'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    },
-    body: {
-      direction: "rtl",
-      fontFamily: "'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    },
-    "*": {
-      fontFamily: "'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    }
-  },
-})
-
-export function Provider(props: ColorModeProviderProps) {
+export function Provider(props: React.PropsWithChildren) {
   return (
-    <ChakraProvider value={customSystem}>
-      <ColorModeProvider {...props} />
+    <ChakraProvider value={defaultSystem}>
+      <ColorModeProvider>{props.children}</ColorModeProvider>
     </ChakraProvider>
   )
 }
