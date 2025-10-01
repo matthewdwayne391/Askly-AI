@@ -110,11 +110,14 @@ export function MiddleSection() {
   if (messages.length === 0) {
     return (
       <Center flex='1'>
-        <VStack gap='6'>
-          <Heading size='3xl'>كيف يمكنني مساعدتك؟</Heading>
-          <Center>
+        <VStack gap='6' px={{ base: '4', md: '6' }}>
+          <Heading size={{ base: 'xl', md: '2xl', lg: '3xl' }} textAlign='center'>
+            كيف يمكنني مساعدتك؟
+          </Heading>
+          <Center w='full'>
             <InputGroup
-              minW='768px'
+              w={{ base: 'full', md: '90%', lg: '768px' }}
+              maxW='768px'
               startElement={
                 <FileUploadRoot>
                   <FileUploadTrigger asChild>
@@ -147,7 +150,15 @@ export function MiddleSection() {
             </InputGroup>
           </Center>
 
-          <HStack gap='2'>
+          <Stack 
+            direction={{ base: 'column', sm: 'row' }} 
+            gap='2' 
+            wrap='wrap'
+            justify='center'
+            align='center'
+            w='full'
+            px={{ base: '4', md: '0' }}
+          >
             <PromptButton
               icon={<IllustrationIcon color='green.500' fontSize='lg' />}
               description='إنشاء صورة'
@@ -165,7 +176,7 @@ export function MiddleSection() {
               description='مفاجأة'
             />
             <PromptButton description='المزيد' />
-          </HStack>
+          </Stack>
         </VStack>
       </Center>
     );
@@ -173,21 +184,23 @@ export function MiddleSection() {
 
   return (
     <Stack flex='1' gap='0' h='full'>
-      <Box flex='1' overflowY='auto' px='4' py='4'>
-        <Stack gap='4' maxW='768px' mx='auto'>
+      <Box flex='1' overflowY='auto' px={{ base: '2', md: '4' }} py='4'>
+        <Stack gap='4' maxW={{ base: '100%', md: '768px' }} mx='auto'>
           {messages.map((message, index) => (
             <Box
               key={index}
-              p='4'
+              p={{ base: '3', md: '4' }}
               borderRadius='lg'
               bg={message.role === 'user' ? 'blue.500' : 'gray.700'}
               color='white'
               alignSelf={message.role === 'user' ? 'flex-start' : 'flex-end'}
-              maxW='80%'
+              maxW={{ base: '90%', md: '80%' }}
               ml={message.role === 'user' ? '0' : 'auto'}
               mr={message.role === 'user' ? 'auto' : '0'}
             >
-              <Text whiteSpace='pre-wrap'>{message.content}</Text>
+              <Text whiteSpace='pre-wrap' fontSize={{ base: 'sm', md: 'md' }}>
+                {message.content}
+              </Text>
             </Box>
           ))}
           {isLoading && (
@@ -207,10 +220,11 @@ export function MiddleSection() {
         </Stack>
       </Box>
 
-      <Box p='4' borderTop='1px' borderColor='gray.700'>
-        <Center>
+      <Box p={{ base: '2', md: '4' }} borderTop='1px' borderColor='gray.700'>
+        <Center w='full'>
           <InputGroup
-            minW='768px'
+            w={{ base: 'full', md: '90%', lg: '768px' }}
+            maxW='768px'
             startElement={
               <FileUploadRoot>
                 <FileUploadTrigger asChild>

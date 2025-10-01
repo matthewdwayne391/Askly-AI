@@ -44,14 +44,15 @@ export const ChatGPTMenu = () => {
       <MenuTrigger asChild>
         <Button
           variant='ghost'
-          fontSize='lg'
+          fontSize={{ base: 'sm', md: 'lg' }}
           fontWeight='bold'
           color='fg.muted'
+          size={{ base: 'sm', md: 'md' }}
         >
           Askly-AI ميزات <MenuIcon />
         </Button>
       </MenuTrigger>
-      <MenuContent minW='320px' borderRadius='2xl'>
+      <MenuContent minW={{ base: '280px', md: '320px' }} borderRadius='2xl'>
         <MenuItem value='chatgpt-plus' py='2'>
           <MenuItemDetail
             title='شات جي بي تي بلس'

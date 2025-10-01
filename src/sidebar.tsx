@@ -80,9 +80,17 @@ export function Sidebar() {
   return (
     <Box
       bg='bg.muted'
-      w={!sideBarVisible ? '0' : '260px'}
+      w={{
+        base: sideBarVisible ? 'full' : '0',
+        lg: sideBarVisible ? '260px' : '0'
+      }}
+      position={{ base: sideBarVisible ? 'fixed' : 'relative', lg: 'relative' }}
+      top={{ base: '0', lg: 'auto' }}
+      left={{ base: '0', lg: 'auto' }}
+      h={{ base: sideBarVisible ? '100vh' : 'auto', lg: 'auto' }}
+      zIndex={{ base: '1000', lg: 'auto' }}
       overflow='hidden'
-      transition=' width 0.3s'
+      transition='width 0.3s'
     >
       <Stack h='full' px='3' py='2'>
         <Flex justify='space-between'>

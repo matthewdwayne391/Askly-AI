@@ -15,35 +15,37 @@ export function TopSection() {
   };
 
   return (
-    <Flex justify='space-between' align='center' p='2'>
-      {!sideBarVisible && (
-        <Flex>
-          <Tooltip
-            content='فتح الشريط الجانبي'
-            positioning={{ placement: 'right' }}
-            showArrow
-          >
-            <IconButton variant='ghost' onClick={toggleSidebar}>
-              <SidebarIcon fontSize='2xl' color='fg.muted' />
-            </IconButton>
-          </Tooltip>
+    <Flex justify='space-between' align='center' p={{ base: '2', md: '3' }} flexWrap='wrap' gap='2'>
+      <Flex align='center' gap='1'>
+        {!sideBarVisible && (
+          <>
+            <Tooltip
+              content='فتح الشريط الجانبي'
+              positioning={{ placement: 'right' }}
+              showArrow
+            >
+              <IconButton variant='ghost' onClick={toggleSidebar} size={{ base: 'sm', md: 'md' }}>
+                <SidebarIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg.muted' />
+              </IconButton>
+            </Tooltip>
 
-          <Tooltip content='محادثة جديدة' showArrow>
-            <IconButton variant='ghost' onClick={handleNewChat}>
-              <NewChatIcon fontSize='2xl' color='fg.muted' />
-            </IconButton>
-          </Tooltip>
+            <Tooltip content='محادثة جديدة' showArrow>
+              <IconButton variant='ghost' onClick={handleNewChat} size={{ base: 'sm', md: 'md' }}>
+                <NewChatIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg.muted' />
+              </IconButton>
+            </Tooltip>
+          </>
+        )}
+        <Box display={{ base: sideBarVisible ? 'none' : 'block', md: 'block' }}>
           <ChatGPTMenu />
-        </Flex>
-      )}
-      {sideBarVisible && <ChatGPTMenu />}
+        </Box>
+      </Flex>
 
       <Avatar
         name='مستخدم'
-        size='sm'
+        size={{ base: 'xs', md: 'sm' }}
         colorPalette='teal'
         variant='solid'
-        mr='3'
       />
     </Flex>
   );

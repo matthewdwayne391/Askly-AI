@@ -10,10 +10,10 @@ function App() {
   return (
     <SidebarProvider>
       <ConversationsProvider>
-        <Flex minH='100dvh'>
+        <Flex minH='100dvh' direction={{ base: 'column', lg: 'row' }}>
           <Sidebar />
 
-          <Box flex='1'>
+          <Box flex='1' w={{ base: 'full', lg: 'auto' }}>
             <Stack h='full'>
               <TopSection />
               <MiddleSection />
