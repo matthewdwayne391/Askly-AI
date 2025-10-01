@@ -3,20 +3,15 @@ import {
   MenuContent,
   MenuItem,
   MenuRoot,
-  MenuSeparator,
   MenuTrigger,
 } from '@/components/ui/menu';
-import { Box, Circle, HStack, Stack, Text } from '@chakra-ui/react';
+import { Circle, HStack, Stack, Text } from '@chakra-ui/react';
 import {
   ChatGPTMenuIcon,
   ChatGPTPlusIcon,
   CheckIcon,
   MenuIcon,
-  TemporaryChatIcon,
 } from './icons/other-icons';
-import { Switch } from './components/ui/switch';
-import { useConversations } from './conversations-context';
-import { useMemo } from 'react';
 
 interface MenuItemDetailProps {
   icon: React.ReactElement;
@@ -38,27 +33,12 @@ function MenuItemDetail(props: MenuItemDetailProps) {
           {description}
         </Text>
       </Stack>
-      <Box>{element}</Box>
+      <div>{element}</div>
     </HStack>
   );
 }
 
 export const ChatGPTMenu = () => {
-  const { createNewConversation, currentConversation, clearTemporaryConversations } = useConversations();
-
-  const isTemporaryMode = useMemo(() => {
-    return currentConversation?.isTemporary || false;
-  }, [currentConversation]);
-
-  const handleTemporaryToggle = (checked: boolean) => {
-    if (checked) {
-      createNewConversation(true);
-    } else {
-      clearTemporaryConversations();
-      createNewConversation(false);
-    }
-  };
-
   return (
     <MenuRoot>
       <MenuTrigger asChild>
@@ -91,21 +71,6 @@ export const ChatGPTMenu = () => {
             icon={<ChatGPTMenuIcon />}
             description='رائع للمهام اليومية'
             element={<CheckIcon fontSize='lg' />}
-          />
-        </MenuItem>
-
-        <MenuSeparator />
-        <MenuItem value='temporary-chat' py='2'>
-          <MenuItemDetail
-            title='محادثة مؤقتة'
-            icon={<TemporaryChatIcon />}
-            element={
-              <Switch 
-                size='sm' 
-                checked={isTemporaryMode}
-                onCheckedChange={(e) => handleTemporaryToggle(e.checked)}
-              />
-            }
           />
         </MenuItem>
       </MenuContent>
