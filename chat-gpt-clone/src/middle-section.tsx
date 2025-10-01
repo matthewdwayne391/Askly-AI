@@ -26,7 +26,7 @@ import {
 } from './icons/other-icons';
 import { useState } from 'react';
 import { Button } from './components/ui/button';
-import { sendChatToGemini, type Message } from './lib/gemini';
+import { sendChatToGemini, askGemini, type Message } from './lib/gemini';
 
 interface PromptButtonProps {
   icon?: React.ReactElement;
@@ -65,8 +65,17 @@ export function MiddleSection() {
     setIsLoading(true);
 
     try {
-      const updatedMessages = [...messages, userMessage];
-      const response = await sendChatToGemini(updatedMessages);
+      let response: string;
+      
+      // Use grounded search for new conversations or fact-based queries
+      if (messages.length === 0) {
+        response = await askGemini(inputValue);
+      } else {
+        // Use chat history for ongoing conversations
+        const updatedMessages = [...messages, userMessage];
+        response = await sendChatToGemini(updatedMessages);
+      }
+      
       const assistantMessage: Message = {
         role: 'assistant',
         content: response,

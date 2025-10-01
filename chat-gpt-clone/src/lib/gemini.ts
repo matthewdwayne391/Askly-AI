@@ -1,3 +1,4 @@
+
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const apiKey = import.meta.env.VITE_GOOGLE_API_KEY || '';
@@ -11,6 +12,29 @@ const genAI = new GoogleGenerativeAI(apiKey);
 export interface Message {
   role: 'user' | 'assistant';
   content: string;
+}
+
+const groundingTool = {
+  googleSearch: {},
+};
+
+// Updated function with Google Search grounding
+export async function askGemini(query: string): Promise<string> {
+  try {
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.5-flash',
+      tools: [groundingTool]
+    });
+    
+    const result = await model.generateContent(query);
+    const response = result.response;
+    const text = response.text();
+    
+    return text;
+  } catch (error) {
+    console.error('Error calling Gemini API with grounding:', error);
+    throw new Error(`Failed to get response from Gemini: ${error}`);
+  }
 }
 
 export async function sendMessageToGemini(message: string): Promise<string> {
@@ -30,7 +54,10 @@ export async function sendMessageToGemini(message: string): Promise<string> {
 
 export async function sendChatToGemini(messages: Message[]): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.5-flash',
+      tools: [groundingTool]
+    });
     
     const chat = model.startChat({
       history: messages.slice(0, -1).map(msg => ({
