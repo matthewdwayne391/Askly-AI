@@ -253,23 +253,56 @@ export function Sidebar() {
                           </Tooltip>
                         </DialogTrigger>
                         
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>تأكيد الحذف</DialogTitle>
+                        <DialogContent
+                          maxW={{ base: '90vw', md: '400px' }}
+                          w={{ base: '90vw', md: 'auto' }}
+                          mx={{ base: '4', md: 'auto' }}
+                          borderRadius={{ base: 'xl', md: '2xl' }}
+                        >
+                          <DialogHeader pb='2'>
+                            <DialogTitle 
+                              fontSize={{ base: 'lg', md: 'xl' }}
+                              textAlign='center'
+                            >
+                              تأكيد الحذف
+                            </DialogTitle>
                           </DialogHeader>
                           
-                          <DialogBody>
-                            <Text>هل أنت متأكد من أنك تريد حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء.</Text>
+                          <DialogBody py='4'>
+                            <Text 
+                              fontSize={{ base: 'sm', md: 'md' }}
+                              textAlign='center'
+                              lineHeight='1.6'
+                            >
+                              هل أنت متأكد من أنك تريد حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء.
+                            </Text>
                           </DialogBody>
                           
-                          <DialogFooter>
+                          <DialogFooter 
+                            pt='2'
+                            gap={{ base: '3', md: '4' }}
+                            flexDirection={{ base: 'column', sm: 'row' }}
+                            w='full'
+                          >
                             <DialogActionTrigger asChild>
-                              <Button variant='outline' onClick={handleDeleteCancel}>
+                              <Button 
+                                variant='outline' 
+                                onClick={handleDeleteCancel}
+                                size={{ base: 'md', md: 'sm' }}
+                                w={{ base: 'full', sm: 'auto' }}
+                                order={{ base: '2', sm: '1' }}
+                              >
                                 إلغاء
                               </Button>
                             </DialogActionTrigger>
                             <DialogActionTrigger asChild>
-                              <Button colorPalette='red' onClick={handleDeleteConfirm}>
+                              <Button 
+                                colorPalette='red' 
+                                onClick={handleDeleteConfirm}
+                                size={{ base: 'md', md: 'sm' }}
+                                w={{ base: 'full', sm: 'auto' }}
+                                order={{ base: '1', sm: '2' }}
+                              >
                                 حذف
                               </Button>
                             </DialogActionTrigger>
