@@ -18,7 +18,7 @@ import {
 } from './icons/sidebar-icons';
 import { useSidebarContext } from './sidebar-context';
 import { useConversations } from './conversations-context';
-import { FiTrash2 } from 'react-icons/fi';
+import { FiTrash2, FiClock } from 'react-icons/fi';
 
 function formatDate(date: Date): string {
   const now = new Date();
@@ -47,6 +47,10 @@ export function Sidebar() {
 
   const handleNewChat = () => {
     createNewConversation(false);
+  };
+
+  const handleNewTemporaryChat = () => {
+    createNewConversation(true);
   };
 
   return (
@@ -115,6 +119,25 @@ export function Sidebar() {
                 />
               </Tooltip>
             </AbsoluteCenter>
+          </HStack>
+
+          <HStack
+            _hover={{
+              layerStyle: 'fill.muted',
+              textDecor: 'none',
+            }}
+            px='1'
+            h='10'
+            borderRadius='lg'
+            w='100%'
+            whiteSpace='nowrap'
+            cursor='pointer'
+            onClick={handleNewTemporaryChat}
+          >
+            <FiClock fontSize='18px' />
+            <Text fontSize='sm' fontWeight='md'>
+              محادثة مؤقتة
+            </Text>
           </HStack>
 
           {conversations.length > 0 && (
