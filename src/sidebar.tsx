@@ -99,7 +99,7 @@ export function Sidebar() {
               <SmallGPTIcon fontSize='md' />
             </Circle>
             <Text fontSize='sm' fontWeight='md'>
-              شات جي بي تي
+              محادثة جديدة
             </Text>
             <AbsoluteCenter
               axis='vertical'
