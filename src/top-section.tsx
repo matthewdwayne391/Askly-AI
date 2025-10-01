@@ -1,4 +1,4 @@
-import { Flex, IconButton } from '@chakra-ui/react';
+import { Box, Flex, IconButton } from '@chakra-ui/react';
 import { ChatGPTMenu } from './ChatGPTMenu';
 import { Avatar } from './components/ui/avatar';
 import { Tooltip } from './components/ui/tooltip';
