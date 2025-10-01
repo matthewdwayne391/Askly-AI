@@ -19,6 +19,7 @@ Preferred communication style: Simple, everyday language.
 - **React 18** with TypeScript for type-safe component development
 - **Strict Mode** enabled for development best practices
 - Path aliases configured (`@/*` maps to `./src/*`) for cleaner imports
+- Development server configured with `host: "0.0.0.0"` and `allowedHosts: true` for Replit proxy compatibility
 
 **UI Component System**
 - **Chakra UI v3** as the primary component library, providing a comprehensive design system
@@ -67,3 +68,20 @@ Preferred communication style: Simple, everyday language.
 - Single-page application with no routing
 - Responsive design with mobile-first considerations
 - Server configured to listen on all network interfaces (`0.0.0.0`) for development accessibility
+
+## Setup Instructions
+
+### Environment Variables
+The application requires a Google Gemini API key to function:
+- **VITE_GOOGLE_API_KEY**: Your Google Gemini API key for AI chat functionality
+- The app will run without the key but will display a warning in the console and AI features won't work
+
+### Development
+- Run `npm run dev` to start the development server on port 5000
+- The server is configured to work with Replit's proxy environment
+
+### Deployment
+- Deployment target: **autoscale** (suitable for this stateless SPA)
+- Build command: `npm run build`
+- Run command: `npx vite preview --host 0.0.0.0 --port 5000`
+- The app will be accessible via a public URL when deployed
