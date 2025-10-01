@@ -11,6 +11,17 @@ import {
 } from '@chakra-ui/react';
 import { Tooltip } from './components/ui/tooltip';
 import {
+  DialogRoot,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogBody,
+  DialogFooter,
+  DialogActionTrigger,
+} from './components/ui/dialog';
+import { Button } from './components/ui/button';
+import {
   NewChatIcon,
   SidebarIcon,
   SmallGPTIcon,
@@ -19,6 +30,7 @@ import {
 import { useSidebarContext } from './sidebar-context';
 import { useConversations } from './conversations-context';
 import { FiTrash2, FiClock } from 'react-icons/fi';
+import { useState } from 'react';
 
 function formatDate(date: Date): string {
   const now = new Date();
@@ -44,6 +56,7 @@ export function Sidebar() {
     deleteConversation,
     setCurrentConversation,
   } = useConversations();
+  const [conversationToDelete, setConversationToDelete] = useState<string | null>(null);
 
   const handleNewChat = () => {
     createNewConversation(false);
@@ -51,6 +64,17 @@ export function Sidebar() {
 
   const handleNewTemporaryChat = () => {
     createNewConversation(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (conversationToDelete) {
+      deleteConversation(conversationToDelete);
+      setConversationToDelete(null);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setConversationToDelete(null);
   };
 
   return (
@@ -181,18 +205,45 @@ export function Sidebar() {
                     display='none'
                     _groupHover={{ display: 'initial' }}
                   >
-                    <Tooltip content='حذف المحادثة' showArrow>
-                      <IconButton
-                        variant='ghost'
-                        size='xs'
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteConversation(conv.id);
-                        }}
-                      >
-                        <FiTrash2 fontSize='14px' color='red.500' />
-                      </IconButton>
-                    </Tooltip>
+                    <DialogRoot open={conversationToDelete === conv.id}>
+                      <DialogTrigger asChild>
+                        <Tooltip content='حذف المحادثة' showArrow>
+                          <IconButton
+                            variant='ghost'
+                            size='xs'
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setConversationToDelete(conv.id);
+                            }}
+                          >
+                            <FiTrash2 fontSize='14px' color='red.500' />
+                          </IconButton>
+                        </Tooltip>
+                      </DialogTrigger>
+                      
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>تأكيد الحذف</DialogTitle>
+                        </DialogHeader>
+                        
+                        <DialogBody>
+                          <Text>هل أنت متأكد من أنك تريد حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء.</Text>
+                        </DialogBody>
+                        
+                        <DialogFooter>
+                          <DialogActionTrigger asChild>
+                            <Button variant='outline' onClick={handleDeleteCancel}>
+                              إلغاء
+                            </Button>
+                          </DialogActionTrigger>
+                          <DialogActionTrigger asChild>
+                            <Button colorPalette='red' onClick={handleDeleteConfirm}>
+                              حذف
+                            </Button>
+                          </DialogActionTrigger>
+                        </DialogFooter>
+                      </DialogContent>
+                    </DialogRoot>
                   </AbsoluteCenter>
                 </HStack>
               ))}
