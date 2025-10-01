@@ -26,7 +26,7 @@ import {
 } from './icons/other-icons';
 import { useState } from 'react';
 import { Button } from './components/ui/button';
-import { sendMessageToGemini, type Message } from './lib/gemini';
+import { sendChatToGemini, type Message } from './lib/gemini';
 
 interface PromptButtonProps {
   icon?: React.ReactElement;
@@ -65,7 +65,8 @@ export function MiddleSection() {
     setIsLoading(true);
 
     try {
-      const response = await sendMessageToGemini(inputValue);
+      const updatedMessages = [...messages, userMessage];
+      const response = await sendChatToGemini(updatedMessages);
       const assistantMessage: Message = {
         role: 'assistant',
         content: response,

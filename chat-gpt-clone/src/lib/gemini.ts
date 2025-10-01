@@ -15,7 +15,7 @@ export interface Message {
 
 export async function sendMessageToGemini(message: string): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
     
     const result = await model.generateContent(message);
     const response = result.response;
@@ -30,7 +30,7 @@ export async function sendMessageToGemini(message: string): Promise<string> {
 
 export async function sendChatToGemini(messages: Message[]): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
     
     const chat = model.startChat({
       history: messages.slice(0, -1).map(msg => ({
