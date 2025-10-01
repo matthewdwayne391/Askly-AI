@@ -15,37 +15,67 @@ export function TopSection() {
   };
 
   return (
-    <Flex justify='space-between' align='center' p={{ base: '2', md: '3' }} flexWrap='wrap' gap='2'>
-      <Flex align='center' gap='1'>
+    <Flex 
+      justify='space-between' 
+      align='center' 
+      p={{ base: '3', md: '4' }} 
+      borderBottom='1px solid'
+      borderColor='border'
+      bg='bg'
+      position='sticky'
+      top='0'
+      zIndex='10'
+      minH={{ base: '60px', md: '70px' }}
+    >
+      <Flex align='center' gap={{ base: '1', md: '2' }} flex='1' minW='0'>
         {!sideBarVisible && (
           <>
             <Tooltip
               content='فتح الشريط الجانبي'
-              positioning={{ placement: 'right' }}
+              positioning={{ placement: 'bottom' }}
               showArrow
             >
-              <IconButton variant='ghost' onClick={toggleSidebar} size={{ base: 'sm', md: 'md' }}>
-                <SidebarIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg.muted' />
+              <IconButton 
+                variant='ghost' 
+                onClick={toggleSidebar} 
+                size={{ base: 'sm', md: 'md' }}
+                minW={{ base: '40px', md: '44px' }}
+                h={{ base: '40px', md: '44px' }}
+              >
+                <SidebarIcon fontSize={{ base: 'lg', md: 'xl' }} color='fg.muted' />
               </IconButton>
             </Tooltip>
 
             <Tooltip content='محادثة جديدة' showArrow>
-              <IconButton variant='ghost' onClick={handleNewChat} size={{ base: 'sm', md: 'md' }}>
-                <NewChatIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg.muted' />
+              <IconButton 
+                variant='ghost' 
+                onClick={handleNewChat} 
+                size={{ base: 'sm', md: 'md' }}
+                minW={{ base: '40px', md: '44px' }}
+                h={{ base: '40px', md: '44px' }}
+              >
+                <NewChatIcon fontSize={{ base: 'lg', md: 'xl' }} color='fg.muted' />
               </IconButton>
             </Tooltip>
           </>
         )}
-        <Box display={{ base: sideBarVisible ? 'none' : 'block', md: 'block' }}>
+        
+        <Box 
+          display={{ base: sideBarVisible ? 'none' : 'block', lg: 'block' }}
+          overflow='hidden'
+          flex='1'
+          minW='0'
+        >
           <ChatGPTMenu />
         </Box>
       </Flex>
 
       <Avatar
         name='مستخدم'
-        size={{ base: 'xs', md: 'sm' }}
+        size={{ base: 'sm', md: 'md' }}
         colorPalette='teal'
         variant='solid'
+        flexShrink='0'
       />
     </Flex>
   );

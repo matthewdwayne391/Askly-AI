@@ -109,154 +109,199 @@ export function MiddleSection() {
 
   if (messages.length === 0) {
     return (
-      <Center flex='1'>
-        <VStack gap='6' px={{ base: '4', md: '6' }}>
-          <Heading size={{ base: 'xl', md: '2xl', lg: '3xl' }} textAlign='center'>
+      <Box 
+        flex='1' 
+        display='flex' 
+        alignItems='center' 
+        justifyContent='center'
+        px={{ base: '4', md: '6', lg: '8' }}
+        py={{ base: '6', md: '8' }}
+        minH='0'
+      >
+        <VStack 
+          gap={{ base: '4', md: '6' }} 
+          w='full' 
+          maxW='4xl' 
+          mx='auto'
+          spacing={{ base: '4', md: '6' }}
+        >
+          <Heading 
+            size={{ base: 'lg', sm: 'xl', md: '2xl', lg: '3xl' }} 
+            textAlign='center'
+            px={{ base: '2', md: '0' }}
+            lineHeight={{ base: '1.3', md: '1.2' }}
+          >
             كيف يمكنني مساعدتك؟
           </Heading>
-          <Center w='full'>
+          
+          <Box w='full' maxW='768px' mx='auto'>
             <InputGroup
-              w={{ base: 'full', md: '90%', lg: '768px' }}
-              maxW='768px'
+              w='full'
               startElement={
                 <FileUploadRoot>
                   <FileUploadTrigger asChild>
-                    <UploadIcon fontSize='2xl' color='fg' />
+                    <UploadIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg' />
                   </FileUploadTrigger>
                   <FileUploadList />
                 </FileUploadRoot>
               }
               endElement={
                 <IconButton
-                  fontSize='2xl'
-                  size='sm'
+                  size={{ base: 'sm', md: 'md' }}
                   borderRadius='full'
                   disabled={inputValue.trim() === '' || isLoading}
                   onClick={handleSendMessage}
                 >
-                  <EnterIcon fontSize='2xl' />
+                  <EnterIcon fontSize={{ base: 'lg', md: 'xl' }} />
                 </IconButton>
               }
             >
               <Input
                 placeholder='أرسل رسالة إلى ChatGPT'
                 variant='subtle'
-                size='lg'
+                size={{ base: 'md', md: 'lg' }}
                 borderRadius='3xl'
                 value={inputValue}
                 onChange={handleInputValue}
                 onKeyPress={handleKeyPress}
+                fontSize={{ base: 'sm', md: 'md' }}
+                py={{ base: '3', md: '4' }}
               />
             </InputGroup>
-          </Center>
+          </Box>
 
           <Stack 
             direction={{ base: 'column', sm: 'row' }} 
-            gap='2' 
+            gap={{ base: '2', md: '3' }}
             wrap='wrap'
             justify='center'
             align='center'
             w='full'
-            px={{ base: '4', md: '0' }}
+            maxW='3xl'
+            mx='auto'
           >
             <PromptButton
-              icon={<IllustrationIcon color='green.500' fontSize='lg' />}
+              icon={<IllustrationIcon color='green.500' fontSize={{ base: 'md', md: 'lg' }} />}
               description='إنشاء صورة'
             />
             <PromptButton
-              icon={<CodeIcon color='blue.500' fontSize='lg' />}
+              icon={<CodeIcon color='blue.500' fontSize={{ base: 'md', md: 'lg' }} />}
               description='برمجة'
             />
             <PromptButton
-              icon={<ChartIcon color='cyan.400' fontSize='lg' />}
+              icon={<ChartIcon color='cyan.400' fontSize={{ base: 'md', md: 'lg' }} />}
               description='تحليل بيانات'
             />
             <PromptButton
-              icon={<BirthdayIcon color='cyan.400' fontSize='lg' />}
+              icon={<BirthdayIcon color='cyan.400' fontSize={{ base: 'md', md: 'lg' }} />}
               description='مفاجأة'
             />
             <PromptButton description='المزيد' />
           </Stack>
         </VStack>
-      </Center>
+      </Box>
     );
   }
 
   return (
-    <Stack flex='1' gap='0' h='full'>
-      <Box flex='1' overflowY='auto' px={{ base: '2', md: '4' }} py='4'>
-        <Stack gap='4' maxW={{ base: '100%', md: '768px' }} mx='auto'>
+    <Box flex='1' display='flex' flexDirection='column' h='full' overflow='hidden'>
+      <Box 
+        flex='1' 
+        overflowY='auto' 
+        px={{ base: '3', md: '4', lg: '6' }} 
+        py={{ base: '3', md: '4' }}
+        bg='bg.subtle'
+      >
+        <Stack 
+          gap={{ base: '3', md: '4' }} 
+          maxW={{ base: '100%', md: '768px', lg: '900px' }} 
+          mx='auto'
+          pb={{ base: '4', md: '6' }}
+        >
           {messages.map((message, index) => (
             <Box
               key={index}
-              p={{ base: '3', md: '4' }}
-              borderRadius='lg'
+              p={{ base: '3', sm: '4', md: '5' }}
+              borderRadius={{ base: 'lg', md: 'xl' }}
               bg={message.role === 'user' ? 'blue.500' : 'gray.700'}
               color='white'
               alignSelf={message.role === 'user' ? 'flex-start' : 'flex-end'}
-              maxW={{ base: '90%', md: '80%' }}
+              maxW={{ base: '95%', sm: '85%', md: '80%' }}
               ml={message.role === 'user' ? '0' : 'auto'}
               mr={message.role === 'user' ? 'auto' : '0'}
+              wordBreak='break-word'
+              position='relative'
             >
-              <Text whiteSpace='pre-wrap' fontSize={{ base: 'sm', md: 'md' }}>
+              <Text 
+                whiteSpace='pre-wrap' 
+                fontSize={{ base: 'sm', md: 'md' }}
+                lineHeight={{ base: '1.5', md: '1.6' }}
+              >
                 {message.content}
               </Text>
             </Box>
           ))}
           {isLoading && (
             <Box
-              p='4'
+              p={{ base: '3', md: '4' }}
               borderRadius='lg'
               bg='gray.700'
               color='white'
               alignSelf='flex-end'
-              maxW='80%'
+              maxW={{ base: '95%', md: '80%' }}
               ml='auto'
               mr='0'
             >
-              <Text>جاري الكتابة...</Text>
+              <Text fontSize={{ base: 'sm', md: 'md' }}>جاري الكتابة...</Text>
             </Box>
           )}
         </Stack>
       </Box>
 
-      <Box p={{ base: '2', md: '4' }} borderTop='1px' borderColor='gray.700'>
-        <Center w='full'>
+      <Box 
+        p={{ base: '3', md: '4' }} 
+        borderTop='1px' 
+        borderColor='border'
+        bg='bg'
+        position='sticky'
+        bottom='0'
+      >
+        <Box w='full' maxW='768px' mx='auto'>
           <InputGroup
-            w={{ base: 'full', md: '90%', lg: '768px' }}
-            maxW='768px'
+            w='full'
             startElement={
               <FileUploadRoot>
                 <FileUploadTrigger asChild>
-                  <UploadIcon fontSize='2xl' color='fg' />
+                  <UploadIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg' />
                 </FileUploadTrigger>
                 <FileUploadList />
               </FileUploadRoot>
             }
             endElement={
               <IconButton
-                fontSize='2xl'
-                size='sm'
+                size={{ base: 'sm', md: 'md' }}
                 borderRadius='full'
                 disabled={inputValue.trim() === '' || isLoading}
                 onClick={handleSendMessage}
               >
-                <EnterIcon fontSize='2xl' />
+                <EnterIcon fontSize={{ base: 'lg', md: 'xl' }} />
               </IconButton>
             }
           >
             <Input
               placeholder='أرسل رسالة إلى ChatGPT'
               variant='subtle'
-              size='lg'
+              size={{ base: 'md', md: 'lg' }}
               borderRadius='3xl'
               value={inputValue}
               onChange={handleInputValue}
               onKeyPress={handleKeyPress}
+              fontSize={{ base: 'sm', md: 'md' }}
+              py={{ base: '3', md: '4' }}
             />
           </InputGroup>
-        </Center>
+        </Box>
       </Box>
-    </Stack>
+    </Box>
   );
 }

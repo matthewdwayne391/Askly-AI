@@ -78,20 +78,43 @@ export function Sidebar() {
   };
 
   return (
-    <Box
-      bg='bg.muted'
-      w={{
-        base: sideBarVisible ? 'full' : '0',
-        lg: sideBarVisible ? '260px' : '0'
-      }}
-      position={{ base: sideBarVisible ? 'fixed' : 'relative', lg: 'relative' }}
-      top={{ base: '0', lg: 'auto' }}
-      left={{ base: '0', lg: 'auto' }}
-      h={{ base: sideBarVisible ? '100vh' : 'auto', lg: 'auto' }}
-      zIndex={{ base: '1000', lg: 'auto' }}
-      overflow='hidden'
-      transition='width 0.3s'
-    >
+    <>
+      {/* Overlay للهواتف */}
+      {sideBarVisible && (
+        <Box
+          position='fixed'
+          top='0'
+          left='0'
+          w='full'
+          h='full'
+          bg='blackAlpha.600'
+          zIndex='999'
+          display={{ base: 'block', lg: 'none' }}
+          onClick={toggleSidebar}
+        />
+      )}
+      
+      <Box
+        bg='bg.muted'
+        w={{
+          base: sideBarVisible ? '280px' : '0',
+          lg: sideBarVisible ? '260px' : '0'
+        }}
+        maxW={{ base: '85vw', lg: 'none' }}
+        position={{ base: 'fixed', lg: 'relative' }}
+        top='0'
+        left='0'
+        h='100vh'
+        zIndex={{ base: '1000', lg: 'auto' }}
+        overflow='hidden'
+        transition='all 0.3s ease-in-out'
+        borderRight={{ base: sideBarVisible ? '1px solid' : 'none', lg: '1px solid' }}
+        borderColor='border'
+        transform={{ 
+          base: sideBarVisible ? 'translateX(0)' : 'translateX(-100%)', 
+          lg: 'none' 
+        }}
+      >
       <Stack h='full' px='3' py='2'>
         <Flex justify='space-between'>
           <Tooltip
