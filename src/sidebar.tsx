@@ -173,10 +173,30 @@ export function Sidebar() {
               cursor='pointer'
               onClick={handleNewChat}
             >
-              <NewChatIcon fontSize='lg' color='fg.muted' />
+              <Circle size='6' bg='bg' borderWidth='1px'>
+                <SmallGPTIcon fontSize='md' />
+              </Circle>
               <Text fontSize='sm' fontWeight='md'>
                 محادثة جديدة
               </Text>
+              <AbsoluteCenter
+                axis='vertical'
+                right='2'
+                display='none'
+                _groupHover={{ display: 'initial' }}
+              >
+                <Tooltip
+                  content='محادثة جديدة'
+                  positioning={{ placement: 'right' }}
+                  showArrow
+                >
+                  <NewChatIcon
+                    fontSize='md'
+                    color='fg.subtle'
+                    _hover={{ color: 'fg.muted' }}
+                  />
+                </Tooltip>
+              </AbsoluteCenter>
             </HStack>
 
             <HStack
