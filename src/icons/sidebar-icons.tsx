@@ -17,10 +17,14 @@ export function SidebarIcon(props: IconProps) {
 
 export function NewChatIcon(props: IconProps) {
   return (
-    <Icon viewBox='0 0 24 24' fill='currentColor' {...props}>
+    <Icon viewBox='0 0 24 24' fill='none' {...props}>
       <svg>
-        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="2"/>
-        <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <path
+          fillRule='evenodd'
+          clipRule='evenodd'
+          d='M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12.75 8.25C12.75 7.83579 12.4142 7.5 12 7.5C11.5858 7.5 11.25 7.83579 11.25 8.25V11.25H8.25C7.83579 11.25 7.5 11.5858 7.5 12C7.5 12.4142 7.83579 12.75 8.25 12.75H11.25V15.75C11.25 16.1642 11.5858 16.5 12 16.5C12.4142 16.5 12.75 16.1642 12.75 15.75V12.75H15.75C16.1642 12.75 16.5 12.4142 16.5 12C16.5 11.5858 16.1642 11.25 15.75 11.25H12.75V8.25Z'
+          fill='currentColor'
+        />
       </svg>
     </Icon>
   );
