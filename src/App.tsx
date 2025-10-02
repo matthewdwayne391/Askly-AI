@@ -4,6 +4,7 @@ import { MiddleSection } from './middle-section';
 import { Sidebar } from './sidebar';
 import { SidebarProvider, useSidebarContext } from './sidebar-context';
 import { ConversationsProvider } from './conversations-context';
+import { ModelProvider } from './model-context';
 import { TopSection } from './top-section';
 
 function AppContent() {
@@ -37,9 +38,11 @@ function AppContent() {
 function App() {
   return (
     <SidebarProvider>
-      <ConversationsProvider>
-        <AppContent />
-      </ConversationsProvider>
+      <ModelProvider>
+        <ConversationsProvider>
+          <AppContent />
+        </ConversationsProvider>
+      </ModelProvider>
     </SidebarProvider>
   );
 }

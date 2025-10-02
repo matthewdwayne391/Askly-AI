@@ -27,6 +27,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from './components/ui/button';
 import { sendChatToGemini, askGemini, type Message } from './lib/gemini';
 import { useConversations } from './conversations-context';
+import { useModel } from './model-context';
 import { ClipboardRoot, ClipboardIconButton } from './components/ui/clipboard';
 import { LuPencil, LuCheck, LuX } from 'react-icons/lu';
 
@@ -51,6 +52,7 @@ export function MiddleSection() {
   const [editingMessageIndex, setEditingMessageIndex] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
   const { currentConversation, updateCurrentConversation, createNewConversation } = useConversations();
+  const { selectedModel } = useModel();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const messages = currentConversation?.messages || [];
@@ -98,9 +100,9 @@ export function MiddleSection() {
       let response: string;
 
       if (messages.length === 0) {
-        response = await askGemini(inputValue);
+        response = await askGemini(inputValue, selectedModel);
       } else {
-        response = await sendChatToGemini(updatedMessages);
+        response = await sendChatToGemini(updatedMessages, selectedModel);
       }
 
       const assistantMessage: Message = {
@@ -149,9 +151,9 @@ export function MiddleSection() {
       let response: string;
 
       if (updatedMessages.length === 1) {
-        response = await askGemini(editedContent);
+        response = await askGemini(editedContent, selectedModel);
       } else {
-        response = await sendChatToGemini(updatedMessages);
+        response = await sendChatToGemini(updatedMessages, selectedModel);
       }
 
       const assistantMessage: Message = {

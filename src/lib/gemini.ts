@@ -56,10 +56,10 @@ function cleanResponse(text: string): string {
   return cleaned;
 }
 
-export async function askGemini(query: string): Promise<string> {
+export async function askGemini(query: string, modelName: string = 'gemini-2.5-flash'): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.0-flash-exp',
+      model: modelName,
       systemInstruction: systemPrompt
     });
     
@@ -74,10 +74,10 @@ export async function askGemini(query: string): Promise<string> {
   }
 }
 
-export async function sendMessageToGemini(message: string): Promise<string> {
+export async function sendMessageToGemini(message: string, modelName: string = 'gemini-2.5-flash'): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.0-flash-exp',
+      model: modelName,
       systemInstruction: systemPrompt
     });
     
@@ -92,10 +92,10 @@ export async function sendMessageToGemini(message: string): Promise<string> {
   }
 }
 
-export async function sendChatToGemini(messages: Message[]): Promise<string> {
+export async function sendChatToGemini(messages: Message[], modelName: string = 'gemini-2.5-flash'): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.0-flash-exp',
+      model: modelName,
       systemInstruction: systemPrompt
     });
     

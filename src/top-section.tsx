@@ -5,10 +5,13 @@ import { Tooltip } from './components/ui/tooltip';
 import { NewChatIcon, SidebarIcon } from './icons/sidebar-icons';
 import { useSidebarContext } from './sidebar-context';
 import { useConversations } from './conversations-context';
+import { useModel } from './model-context';
+import { NativeSelectRoot, NativeSelectField } from './components/ui/native-select';
 
 export function TopSection() {
   const { sideBarVisible, toggleSidebar } = useSidebarContext();
   const { createNewConversation } = useConversations();
+  const { selectedModel, setSelectedModel } = useModel();
 
   const handleNewChat = () => {
     createNewConversation(false);
@@ -68,6 +71,17 @@ export function TopSection() {
         >
           <ChatGPTMenu />
         </Box>
+
+        <NativeSelectRoot size={{ base: 'sm', md: 'md' }} width={{ base: '140px', md: '180px' }}>
+          <NativeSelectField
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+            fontSize={{ base: 'xs', md: 'sm' }}
+          >
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+            <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash Exp</option>
+          </NativeSelectField>
+        </NativeSelectRoot>
       </Flex>
 
       <Avatar
