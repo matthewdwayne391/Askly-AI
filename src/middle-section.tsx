@@ -2,7 +2,7 @@ import {
   Box,
   Heading,
   IconButton,
-  Input,
+  Textarea,
   Span,
   Stack,
   Text,
@@ -55,7 +55,7 @@ export function MiddleSection() {
     }
   }, [currentConversation, createNewConversation]);
 
-  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
 
@@ -98,7 +98,7 @@ export function MiddleSection() {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
@@ -153,8 +153,7 @@ export function MiddleSection() {
                 </IconButton>
               }
             >
-              <Input
-                as='textarea'
+              <Textarea
                 placeholder='أرسل رسالة إلى ChatGPT'
                 variant='subtle'
                 size={{ base: 'md', md: 'lg' }}
@@ -164,11 +163,10 @@ export function MiddleSection() {
                 onKeyDown={handleKeyPress}
                 fontSize={{ base: 'sm', md: 'md' }}
                 py={{ base: '3', md: '4' }}
-                css={{
-                  resize: 'none',
-                  overflow: 'hidden',
-                  minHeight: 'auto',
-                }}
+                resize='none'
+                overflow='hidden'
+                minH='auto'
+                rows={1}
               />
             </InputGroup>
           </Box>
@@ -291,8 +289,7 @@ export function MiddleSection() {
               </IconButton>
             }
           >
-            <Input
-              as='textarea'
+            <Textarea
               placeholder='أرسل رسالة إلى ChatGPT'
               variant='subtle'
               size={{ base: 'md', md: 'lg' }}
@@ -302,11 +299,10 @@ export function MiddleSection() {
               onKeyDown={handleKeyPress}
               fontSize={{ base: 'sm', md: 'md' }}
               py={{ base: '3', md: '4' }}
-              css={{
-                resize: 'none',
-                overflow: 'hidden',
-                minHeight: 'auto',
-              }}
+              resize='none'
+              overflow='hidden'
+              minH='auto'
+              rows={1}
             />
           </InputGroup>
         </Box>
