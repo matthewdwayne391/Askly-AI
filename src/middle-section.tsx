@@ -22,7 +22,7 @@ import {
   IllustrationIcon,
   UploadIcon,
 } from './icons/other-icons';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from './components/ui/button';
 import { sendChatToGemini, askGemini, type Message } from './lib/gemini';
 import { useConversations } from './conversations-context';
@@ -46,6 +46,7 @@ export function MiddleSection() {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { currentConversation, updateCurrentConversation, createNewConversation } = useConversations();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   const messages = currentConversation?.messages || [];
 
@@ -54,6 +55,18 @@ export function MiddleSection() {
       createNewConversation(false);
     }
   }, [currentConversation, createNewConversation]);
+
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [inputValue]);
 
   const handleInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -71,6 +84,10 @@ export function MiddleSection() {
     updateCurrentConversation(updatedMessages);
     setInputValue('');
     setIsLoading(true);
+
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
 
     try {
       let response: string;
@@ -154,6 +171,7 @@ export function MiddleSection() {
               }
             >
               <Textarea
+                ref={textareaRef}
                 placeholder='أرسل رسالة إلى ChatGPT'
                 variant='subtle'
                 size={{ base: 'md', md: 'lg' }}
