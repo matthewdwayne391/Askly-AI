@@ -16,13 +16,13 @@ import {
 } from './components/ui/file-button';
 import { InputGroup } from './components/ui/input-group';
 import {
-  BirthdayIcon,
-  ChartIcon,
+  BulbIcon,
   CodeIcon,
   EnterIcon,
-  IllustrationIcon,
   UploadIcon,
   SearchIcon,
+  SummarizeIcon,
+  WriteIcon,
 } from './icons/other-icons';
 import { useState, useEffect, useRef } from 'react';
 import { Button } from './components/ui/button';
@@ -275,19 +275,19 @@ export function MiddleSection() {
               onClick={() => setInputValue('اشرح لي مفهوم ')}
             />
             <PromptButton 
-              icon={<ChartIcon />} 
+              icon={<SummarizeIcon />} 
               description='تلخيص نصوص'
               onClick={() => setInputValue('لخص هذا النص: ')}
             />
             <PromptButton 
-              icon={<IllustrationIcon />} 
+              icon={<WriteIcon />} 
               description='ترجمة فورية'
               onClick={() => setInputValue('ترجم إلى الإنجليزية: ')}
             />
             <PromptButton
-              icon={<BirthdayIcon />}
-              description='إنشاء صور'
-              onClick={() => setInputValue('أنشئ صورة عن ')}
+              icon={<BulbIcon />}
+              description='نصائح يومية'
+              onClick={() => setInputValue('أعطني نصيحة يومية عن ')}
             />
             <PromptButton 
               icon={<CodeIcon />} 
