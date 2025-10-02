@@ -55,12 +55,6 @@ export function MiddleSection() {
 
   const messages = currentConversation?.messages || [];
 
-  useEffect(() => {
-    if (!currentConversation) {
-      createNewConversation(false);
-    }
-  }, [currentConversation, createNewConversation]);
-
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -78,14 +72,20 @@ export function MiddleSection() {
   };
 
   const handleSendMessage = async () => {
-    if (inputValue.trim() === '' || !currentConversation) return;
+    if (inputValue.trim() === '') return;
+
+    let conversationToUse = currentConversation;
+    if (!conversationToUse) {
+      createNewConversation(false);
+      return;
+    }
 
     const userMessage: Message = {
       role: 'user',
       content: inputValue,
     };
 
-    const updatedMessages = [...messages, userMessage];
+    const updatedMessages = [...conversationToUse.messages, userMessage];
     updateCurrentConversation(updatedMessages);
     setInputValue('');
     setIsLoading(true);

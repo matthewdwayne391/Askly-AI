@@ -26,11 +26,16 @@ export function ConversationsProvider({ children }: { children: ReactNode }) {
   const [currentConversation, setCurrentConv] = useState<Conversation | null>(null);
 
   const createNewConversation = (isTemporary = false) => {
+    const now = new Date();
+    const title = isTemporary 
+      ? `محادثة مؤقتة - ${now.toLocaleString('ar-SA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`
+      : `محادثة جديدة - ${now.toLocaleString('ar-SA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+    
     const newConv: Conversation = {
       id: Date.now().toString(),
-      title: 'محادثة جديدة',
+      title,
       messages: [],
-      createdAt: new Date(),
+      createdAt: now,
       isTemporary,
     };
     setConversations((prev) => [newConv, ...prev]);
