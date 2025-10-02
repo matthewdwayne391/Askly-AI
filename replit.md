@@ -85,3 +85,24 @@ The application requires a Google Gemini API key to function:
 - Build command: `npm run build`
 - Run command: `npx vite preview --host 0.0.0.0 --port 5000`
 - The app will be accessible via a public URL when deployed
+
+## Recent Changes
+
+### October 2, 2025 - Replit Environment Setup
+- Successfully imported project from GitHub
+- Installed all npm dependencies (314 packages)
+- Verified Vite configuration is properly set up for Replit environment:
+  - Server running on port 5000
+  - Host set to 0.0.0.0 for network accessibility
+  - allowedHosts enabled for Replit proxy compatibility
+- Configured deployment settings for autoscale deployment
+- Development server workflow is running successfully
+- Application UI is loading correctly (displaying Arabic interface)
+- Note: VITE_GOOGLE_API_KEY environment variable needs to be set by user for AI functionality to work
+
+### Getting Your Google API Key
+To enable the AI chat functionality, you'll need to:
+1. Visit [Google AI Studio](https://aistudio.google.com/apikey)
+2. Create a new API key for the Gemini API
+3. Add the API key to your Replit Secrets with the name `VITE_GOOGLE_API_KEY`
+4. Restart the development server to apply the changes
