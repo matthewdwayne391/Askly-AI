@@ -38,13 +38,13 @@ function formatDate(date: Date): string {
   const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
   
   if (diffInHours < 24) {
-    return 'اليوم';
+    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
   } else if (diffInHours < 48) {
-    return 'أمس';
+    return `أمس ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
   } else if (diffInHours < 168) {
-    return `منذ ${Math.floor(diffInHours / 24)} أيام`;
+    return `${Math.floor(diffInHours / 24)}d ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
   } else {
-    return date.toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' }) + ' ' + date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
   }
 }
 

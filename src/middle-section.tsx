@@ -343,6 +343,8 @@ export function MiddleSection() {
                     whiteSpace='pre-wrap' 
                     fontSize={{ base: 'sm', md: 'md' }}
                     lineHeight={{ base: '1.5', md: '1.6' }}
+                    userSelect='text'
+                    cursor='text'
                   >
                     {message.content}
                   </Text>
