@@ -173,7 +173,7 @@ export function Sidebar() {
               cursor='pointer'
               onClick={handleNewChat}
             >
-              <NewChatIcon fontSize='xl' color='fg.muted' />
+              <NewChatIcon fontSize='lg' color='fg.muted' />
               <Text fontSize='sm' fontWeight='md'>
                 محادثة جديدة
               </Text>
