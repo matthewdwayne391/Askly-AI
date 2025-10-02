@@ -12,6 +12,8 @@ import {
   CheckIcon,
   MenuIcon,
 } from './icons/other-icons';
+import { NativeSelectRoot, NativeSelectField } from './components/ui/native-select';
+import { useModel } from './model-context';
 
 interface MenuItemDetailProps {
   icon: React.ReactElement;
@@ -39,6 +41,8 @@ function MenuItemDetail(props: MenuItemDetailProps) {
 }
 
 export const ChatGPTMenu = () => {
+  const { selectedModel, setSelectedModel } = useModel();
+  
   return (
     <MenuRoot>
       <MenuTrigger asChild>
@@ -87,6 +91,22 @@ export const ChatGPTMenu = () => {
             description='رائع للمهام اليومية'
             element={<CheckIcon fontSize='lg' />}
           />
+        </MenuItem>
+
+        <MenuItem value='model-selection' py='2' closeOnSelect={false}>
+          <HStack w='100%' gap='3'>
+            <Text fontSize='sm' fontWeight='medium'>اختيار النموذج:</Text>
+            <NativeSelectRoot size='sm' flex='1'>
+              <NativeSelectField
+                value={selectedModel}
+                onChange={(e) => setSelectedModel(e.target.value)}
+                fontSize='sm'
+              >
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash Exp</option>
+              </NativeSelectField>
+            </NativeSelectRoot>
+          </HStack>
         </MenuItem>
       </MenuContent>
     </MenuRoot>
