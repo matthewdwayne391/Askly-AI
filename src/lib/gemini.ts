@@ -14,6 +14,10 @@ export interface Message {
   content: string;
 }
 
+const groundingTool = {
+  googleSearch: {},
+};
+
 // Professional system prompt for organized responses
 const systemPrompt = `أنت مساعد ذكي محترف. اتبع هذه القواعد بدقة في جميع إجاباتك:
 
@@ -58,10 +62,17 @@ function cleanResponse(text: string): string {
 
 export async function askGemini(query: string, modelName: string = 'gemini-2.5-flash'): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ 
+    const modelConfig: any = {
       model: modelName,
       systemInstruction: systemPrompt
-    });
+    };
+    
+    // Add Google Search only for gemini-2.5-flash
+    if (modelName === 'gemini-2.5-flash') {
+      modelConfig.tools = [groundingTool];
+    }
+    
+    const model = genAI.getGenerativeModel(modelConfig);
     
     const result = await model.generateContent(query);
     const response = result.response;
@@ -94,10 +105,17 @@ export async function sendMessageToGemini(message: string, modelName: string = '
 
 export async function sendChatToGemini(messages: Message[], modelName: string = 'gemini-2.5-flash'): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ 
+    const modelConfig: any = {
       model: modelName,
       systemInstruction: systemPrompt
-    });
+    };
+    
+    // Add Google Search only for gemini-2.5-flash
+    if (modelName === 'gemini-2.5-flash') {
+      modelConfig.tools = [groundingTool];
+    }
+    
+    const model = genAI.getGenerativeModel(modelConfig);
     
     const chat = model.startChat({
       history: messages.slice(0, -1).map(msg => ({

@@ -88,13 +88,14 @@ The application requires a Google Gemini API key to function:
 
 ## Recent Changes
 
-### October 2, 2025 - Added Model Selection Feature
+### October 2, 2025 - Added Model Selection Feature & Restored Google Search
 - Added model selection dropdown in TopSection allowing users to choose between AI models
 - Created `ModelContext` to manage selected model state globally
-- Default model set to `gemini-2.5-flash` as requested
-- Users can switch between `gemini-2.5-flash` and `gemini-2.0-flash-exp` from the UI
+- Default model set to `gemini-2.5-flash` with Google Search Tool enabled
+- Users can switch between `gemini-2.5-flash` (with Google Search) and `gemini-2.0-flash-exp` (without Google Search) from the UI
 - Model selection persists during the session and applies to all new messages
 - Updated all Gemini API functions to accept model parameter
+- Restored Google Search grounding tool for `gemini-2.5-flash` model only
 
 ### October 2, 2025 - Cleaned AI Responses from Technical Details
 - Added `cleanResponse()` function to filter out technical details from Gemini responses
