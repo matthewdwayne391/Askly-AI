@@ -37,14 +37,25 @@ function formatDate(date: Date): string {
   const now = new Date();
   const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
   
+  const getTimeString = (d: Date) => {
+    const hours = d.getHours();
+    const minutes = d.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 || 12;
+    const minutesStr = minutes.toString().padStart(2, '0');
+    return `${hours12}:${minutesStr} ${ampm}`;
+  };
+  
   if (diffInHours < 24) {
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    return getTimeString(date);
   } else if (diffInHours < 48) {
-    return `أمس ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+    return `أمس ${getTimeString(date)}`;
   } else if (diffInHours < 168) {
-    return `${Math.floor(diffInHours / 24)}d ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+    return `${Math.floor(diffInHours / 24)}d ${getTimeString(date)}`;
   } else {
-    return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' }) + ' ' + date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${month}/${day} ${getTimeString(date)}`;
   }
 }
 
