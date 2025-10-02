@@ -148,7 +148,7 @@ export function MiddleSection() {
             كيف يمكنني مساعدتك؟
           </Heading>
           
-          <Box w='full' maxW='768px' mx='auto'>
+          <Box w='full' maxW='1200px' mx='auto'>
             <InputGroup
               w='full'
               startElement={
