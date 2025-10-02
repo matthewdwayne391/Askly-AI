@@ -296,7 +296,7 @@ export function MiddleSection() {
               key={index}
               className='group'
               p={{ base: '3', sm: '4', md: '5' }}
-              borderRadius={{ base: 'lg', md: 'xl' }}
+              borderRadius={{ base: 'xl', md: '2xl' }}
               bg={message.role === 'user' ? 'blue.500' : 'gray.700'}
               color='white'
               alignSelf={message.role === 'user' ? 'flex-start' : 'flex-end'}
@@ -305,6 +305,9 @@ export function MiddleSection() {
               mr={message.role === 'user' ? 'auto' : '0'}
               wordBreak='break-word'
               position='relative'
+              boxShadow='sm'
+              _hover={{ boxShadow: 'md' }}
+              transition='box-shadow 0.2s'
             >
               {editingMessageIndex === index && message.role === 'user' ? (
                 <VStack gap={2} align='stretch'>
@@ -355,15 +358,22 @@ export function MiddleSection() {
                         <ClipboardIconButton size='xs' variant='ghost' colorScheme='whiteAlpha' />
                       </ClipboardRoot>
                     )}
-                    {message.role === 'user' && index === messages.length - 2 && (
-                      <IconButton
-                        size='xs'
-                        variant='ghost'
-                        colorScheme='whiteAlpha'
-                        onClick={() => handleEditMessage(index)}
-                      >
-                        <LuPencil />
-                      </IconButton>
+                    {message.role === 'user' && (
+                      <>
+                        <ClipboardRoot value={message.content}>
+                          <ClipboardIconButton size='xs' variant='ghost' colorScheme='whiteAlpha' />
+                        </ClipboardRoot>
+                        {index === messages.length - 2 && (
+                          <IconButton
+                            size='xs'
+                            variant='ghost'
+                            colorScheme='whiteAlpha'
+                            onClick={() => handleEditMessage(index)}
+                          >
+                            <LuPencil />
+                          </IconButton>
+                        )}
+                      </>
                     )}
                   </HStack>
                 </VStack>
