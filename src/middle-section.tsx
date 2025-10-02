@@ -7,6 +7,7 @@ import {
   Stack,
   Text,
   VStack,
+  HStack,
 } from '@chakra-ui/react';
 import {
   FileUploadList,
@@ -26,6 +27,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from './components/ui/button';
 import { sendChatToGemini, askGemini, type Message } from './lib/gemini';
 import { useConversations } from './conversations-context';
+import { ClipboardRoot, ClipboardIconButton } from './components/ui/clipboard';
+import { LuPencil, LuCheck, LuX } from 'react-icons/lu';
 
 interface PromptButtonProps {
   icon?: React.ReactElement;
@@ -45,6 +48,8 @@ function PromptButton(props: PromptButtonProps) {
 export function MiddleSection() {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [editingMessageIndex, setEditingMessageIndex] = useState<number | null>(null);
+  const [editedContent, setEditedContent] = useState('');
   const { currentConversation, updateCurrentConversation, createNewConversation } = useConversations();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   
@@ -120,6 +125,55 @@ export function MiddleSection() {
       e.preventDefault();
       handleSendMessage();
     }
+  };
+
+  const handleEditMessage = (index: number) => {
+    setEditingMessageIndex(index);
+    setEditedContent(messages[index].content);
+  };
+
+  const handleSaveEdit = async (index: number) => {
+    if (editedContent.trim() === '') return;
+
+    const updatedMessages = messages.slice(0, index + 1);
+    updatedMessages[index] = {
+      ...updatedMessages[index],
+      content: editedContent,
+    };
+
+    updateCurrentConversation(updatedMessages);
+    setEditingMessageIndex(null);
+    setIsLoading(true);
+
+    try {
+      let response: string;
+      
+      if (updatedMessages.length === 1) {
+        response = await askGemini(editedContent);
+      } else {
+        response = await sendChatToGemini(updatedMessages);
+      }
+      
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: response,
+      };
+      updateCurrentConversation([...updatedMessages, assistantMessage]);
+    } catch (error) {
+      console.error('Error:', error);
+      const errorMessage: Message = {
+        role: 'assistant',
+        content: 'عذراً، حدث خطأ أثناء الاتصال بـ Gemini API. تأكد من إضافة VITE_GOOGLE_API_KEY.',
+      };
+      updateCurrentConversation([...updatedMessages, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingMessageIndex(null);
+    setEditedContent('');
   };
 
   if (messages.length === 0) {
@@ -240,6 +294,7 @@ export function MiddleSection() {
           {messages.map((message, index) => (
             <Box
               key={index}
+              className='group'
               p={{ base: '3', sm: '4', md: '5' }}
               borderRadius={{ base: 'lg', md: 'xl' }}
               bg={message.role === 'user' ? 'blue.500' : 'gray.700'}
@@ -251,13 +306,71 @@ export function MiddleSection() {
               wordBreak='break-word'
               position='relative'
             >
-              <Text 
-                whiteSpace='pre-wrap' 
-                fontSize={{ base: 'sm', md: 'md' }}
-                lineHeight={{ base: '1.5', md: '1.6' }}
-              >
-                {message.content}
-              </Text>
+              {editingMessageIndex === index && message.role === 'user' ? (
+                <VStack gap={2} align='stretch'>
+                  <Textarea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                    fontSize={{ base: 'sm', md: 'md' }}
+                    bg='whiteAlpha.200'
+                    color='white'
+                    borderColor='whiteAlpha.400'
+                    minH='100px'
+                  />
+                  <HStack justify='flex-end' gap={2}>
+                    <IconButton
+                      size='sm'
+                      colorScheme='green'
+                      onClick={() => handleSaveEdit(index)}
+                    >
+                      <LuCheck />
+                    </IconButton>
+                    <IconButton
+                      size='sm'
+                      colorScheme='red'
+                      onClick={handleCancelEdit}
+                    >
+                      <LuX />
+                    </IconButton>
+                  </HStack>
+                </VStack>
+              ) : (
+                <>
+                  <Text 
+                    whiteSpace='pre-wrap' 
+                    fontSize={{ base: 'sm', md: 'md' }}
+                    lineHeight={{ base: '1.5', md: '1.6' }}
+                  >
+                    {message.content}
+                  </Text>
+                  <HStack 
+                    position='absolute' 
+                    bottom={2} 
+                    left={message.role === 'user' ? 2 : 'auto'}
+                    right={message.role === 'assistant' ? 2 : 'auto'}
+                    gap={1}
+                    opacity={0}
+                    _groupHover={{ opacity: 1 }}
+                    transition='opacity 0.2s'
+                  >
+                    {message.role === 'assistant' && (
+                      <ClipboardRoot value={message.content}>
+                        <ClipboardIconButton size='xs' variant='ghost' colorScheme='whiteAlpha' />
+                      </ClipboardRoot>
+                    )}
+                    {message.role === 'user' && index === messages.length - 2 && (
+                      <IconButton
+                        size='xs'
+                        variant='ghost'
+                        colorScheme='whiteAlpha'
+                        onClick={() => handleEditMessage(index)}
+                      >
+                        <LuPencil />
+                      </IconButton>
+                    )}
+                  </HStack>
+                </>
+              )}
             </Box>
           ))}
           {isLoading && (
