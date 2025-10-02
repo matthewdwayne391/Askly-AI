@@ -124,11 +124,11 @@ export function Sidebar() {
           lg: sideBarVisible ? '260px' : '0'
         }}
         maxW={{ base: '85vw', lg: 'none' }}
-        position={{ base: 'fixed', lg: 'relative' }}
+        position='fixed'
         top='0'
         left='0'
         h='100vh'
-        zIndex={{ base: '1000', lg: 'auto' }}
+        zIndex={{ base: '1000', lg: '1000' }}
         overflow='hidden'
         transition='all 0.3s ease-in-out'
         borderRight={{ base: sideBarVisible ? '1px solid' : 'none', lg: '1px solid' }}

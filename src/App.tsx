@@ -2,34 +2,43 @@ import { Box, Flex } from '@chakra-ui/react';
 import { BottomSection } from './bottom-section';
 import { MiddleSection } from './middle-section';
 import { Sidebar } from './sidebar';
-import { SidebarProvider } from './sidebar-context';
+import { SidebarProvider, useSidebarContext } from './sidebar-context';
 import { ConversationsProvider } from './conversations-context';
 import { TopSection } from './top-section';
+
+function AppContent() {
+  const { sideBarVisible } = useSidebarContext();
+
+  return (
+    <Flex 
+      minH='100vh' 
+      direction={{ base: 'column', lg: 'row' }}
+      position='relative'
+    >
+      <Sidebar />
+
+      <Box 
+        flex='1' 
+        w={{ base: 'full', lg: 'auto' }}
+        minH={{ base: '100vh', lg: 'auto' }}
+        display='flex'
+        flexDirection='column'
+        marginLeft={{ base: '0', lg: sideBarVisible ? '260px' : '0' }}
+        transition='margin-left 0.3s ease-in-out'
+      >
+        <TopSection />
+        <MiddleSection />
+        <BottomSection />
+      </Box>
+    </Flex>
+  );
+}
 
 function App() {
   return (
     <SidebarProvider>
       <ConversationsProvider>
-        <Flex 
-          minH='100vh' 
-          direction={{ base: 'column', lg: 'row' }}
-          overflow='hidden'
-          position='relative'
-        >
-          <Sidebar />
-
-          <Box 
-            flex='1' 
-            w={{ base: 'full', lg: 'auto' }}
-            minH={{ base: '100vh', lg: 'auto' }}
-            display='flex'
-            flexDirection='column'
-          >
-            <TopSection />
-            <MiddleSection />
-            <BottomSection />
-          </Box>
-        </Flex>
+        <AppContent />
       </ConversationsProvider>
     </SidebarProvider>
   );

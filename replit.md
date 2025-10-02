@@ -88,6 +88,13 @@ The application requires a Google Gemini API key to function:
 
 ## Recent Changes
 
+### October 2, 2025 - Fixed Sidebar Sticky Behavior
+- Fixed sidebar positioning issue where it wouldn't stay visible when scrolling through long conversations
+- Changed sidebar from `position: relative` to `position: fixed` on desktop screens
+- Added dynamic margin to main content area that adjusts based on sidebar visibility
+- Added smooth transition animation for better UX when toggling sidebar
+- Sidebar now remains visible at all times when open, regardless of scroll position
+
 ### October 2, 2025 - Replit Environment Setup
 - Successfully imported project from GitHub
 - Installed all npm dependencies (314 packages)
