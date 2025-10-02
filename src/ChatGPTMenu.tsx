@@ -73,9 +73,9 @@ export const ChatGPTMenu = () => {
       >
         <MenuItem value='chatgpt-plus' py='2'>
           <MenuItemDetail
-            title='شات جي بي تي بلس'
+            title='Askly-AI بلس'
             icon={<ChatGPTPlusIcon />}
-            description='النموذج الأذكى والمزيد'
+            description='قدرات متقدمة وتجربة أسرع'
             element={
               <Button variant='outline' size='xs' borderRadius='full'>
                 ترقية
