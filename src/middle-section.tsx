@@ -335,7 +335,7 @@ export function MiddleSection() {
                   </HStack>
                 </VStack>
               ) : (
-                <>
+                <VStack align='stretch' gap={2}>
                   <Text 
                     whiteSpace='pre-wrap' 
                     fontSize={{ base: 'sm', md: 'md' }}
@@ -344,10 +344,7 @@ export function MiddleSection() {
                     {message.content}
                   </Text>
                   <HStack 
-                    position='absolute' 
-                    bottom={2} 
-                    left={message.role === 'user' ? 2 : 'auto'}
-                    right={message.role === 'assistant' ? 2 : 'auto'}
+                    justify={message.role === 'user' ? 'flex-start' : 'flex-end'}
                     gap={1}
                     opacity={0}
                     _groupHover={{ opacity: 1 }}
@@ -369,7 +366,7 @@ export function MiddleSection() {
                       </IconButton>
                     )}
                   </HStack>
-                </>
+                </VStack>
               )}
             </Box>
           ))}
