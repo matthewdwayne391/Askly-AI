@@ -22,6 +22,7 @@ import {
   EnterIcon,
   IllustrationIcon,
   UploadIcon,
+  SearchIcon,
 } from './icons/other-icons';
 import { useState, useEffect, useRef } from 'react';
 import { Button } from './components/ui/button';
@@ -34,14 +35,30 @@ import { LuPencil, LuCheck, LuX } from 'react-icons/lu';
 interface PromptButtonProps {
   icon?: React.ReactElement;
   description: string;
+  onClick?: () => void;
 }
 
-function PromptButton(props: PromptButtonProps) {
-  const { icon, description } = props;
+function PromptButton({
+  icon,
+  description,
+  onClick,
+}: PromptButtonProps) {
   return (
-    <Button variant='outline' borderRadius='full'>
+    <Button
+      variant='outline'
+      size={{ base: 'sm', md: 'md' }}
+      px={{ base: '3', md: '4' }}
+      borderRadius='xl'
+      gap='2'
+      color='fg.muted'
+      _hover={{ bg: 'bg.muted' }}
+      borderColor='border'
+      flexShrink={0}
+      fontSize={{ base: 'xs', md: 'sm' }}
+      onClick={onClick}
+    >
       {icon}
-      <Span color='fg.subtle'>{description}</Span>
+      <Span>{description}</Span>
     </Button>
   );
 }
@@ -248,30 +265,35 @@ export function MiddleSection() {
           <Stack 
             direction={{ base: 'column', sm: 'row' }} 
             gap={{ base: '2', md: '3' }}
-            wrap='wrap'
             justify='center'
-            align='center'
             w='full'
-            maxW='3xl'
-            mx='auto'
+            flexWrap='wrap'
           >
             <PromptButton
-              icon={<IllustrationIcon color='green.500' fontSize={{ base: 'md', md: 'lg' }} />}
-              description='إنشاء صورة'
+              icon={<SearchIcon />}
+              description='أسئلة سريعة'
+              onClick={() => setInputValue('اشرح لي مفهوم ')}
+            />
+            <PromptButton 
+              icon={<ChartIcon />} 
+              description='تلخيص نصوص'
+              onClick={() => setInputValue('لخص هذا النص: ')}
+            />
+            <PromptButton 
+              icon={<IllustrationIcon />} 
+              description='ترجمة فورية'
+              onClick={() => setInputValue('ترجم إلى الإنجليزية: ')}
             />
             <PromptButton
-              icon={<CodeIcon color='blue.500' fontSize={{ base: 'md', md: 'lg' }} />}
-              description='برمجة'
+              icon={<BirthdayIcon />}
+              description='إنشاء صور'
+              onClick={() => setInputValue('أنشئ صورة عن ')}
             />
-            <PromptButton
-              icon={<ChartIcon color='cyan.400' fontSize={{ base: 'md', md: 'lg' }} />}
-              description='تحليل بيانات'
+            <PromptButton 
+              icon={<CodeIcon />} 
+              description='حل واجب أو تمرين'
+              onClick={() => setInputValue('ساعدني في حل هذا التمرين: ')}
             />
-            <PromptButton
-              icon={<BirthdayIcon color='cyan.400' fontSize={{ base: 'md', md: 'lg' }} />}
-              description='مفاجأة'
-            />
-            <PromptButton description='المزيد' />
           </Stack>
         </VStack>
       </Box>
