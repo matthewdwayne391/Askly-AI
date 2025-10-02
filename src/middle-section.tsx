@@ -52,7 +52,7 @@ export function MiddleSection() {
   const [editedContent, setEditedContent] = useState('');
   const { currentConversation, updateCurrentConversation, createNewConversation } = useConversations();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  
+
   const messages = currentConversation?.messages || [];
 
   useEffect(() => {
@@ -96,13 +96,13 @@ export function MiddleSection() {
 
     try {
       let response: string;
-      
+
       if (messages.length === 0) {
         response = await askGemini(inputValue);
       } else {
         response = await sendChatToGemini(updatedMessages);
       }
-      
+
       const assistantMessage: Message = {
         role: 'assistant',
         content: response,
@@ -147,13 +147,13 @@ export function MiddleSection() {
 
     try {
       let response: string;
-      
+
       if (updatedMessages.length === 1) {
         response = await askGemini(editedContent);
       } else {
         response = await sendChatToGemini(updatedMessages);
       }
-      
+
       const assistantMessage: Message = {
         role: 'assistant',
         content: response,
@@ -176,7 +176,7 @@ export function MiddleSection() {
     setEditedContent('');
   };
 
-  if (messages.length === 0) {
+  if (!currentConversation || messages.length === 0) {
     return (
       <Box 
         flex='1' 
@@ -201,7 +201,7 @@ export function MiddleSection() {
           >
             كيف يمكنني مساعدتك؟
           </Heading>
-          
+
           <Box w='full' maxW='1200px' mx='auto'>
             <InputGroup
               w='full'
