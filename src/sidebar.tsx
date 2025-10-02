@@ -31,7 +31,7 @@ import {
 import { useSidebarContext } from './sidebar-context';
 import { useConversations } from './conversations-context';
 import { FiTrash2, FiClock } from 'react-icons/fi';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function formatDate(date: Date): string {
   const now = new Date();
@@ -69,6 +69,17 @@ export function Sidebar() {
     setCurrentConversation,
   } = useConversations();
   const [conversationToDelete, setConversationToDelete] = useState<string | null>(null);
+  const conversationsListRef = useRef<HTMLDivElement>(null);
+
+  // التمرير التلقائي للأسفل عند تغيير المحادثات أو المحادثة الحالية
+  useEffect(() => {
+    if (conversationsListRef.current && currentConversation) {
+      const activeElement = conversationsListRef.current.querySelector(`[data-conversation-id="${currentConversation.id}"]`);
+      if (activeElement) {
+        activeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  }, [currentConversation, conversations]);
 
   const handleNewChat = () => {
     createNewConversation(false);
@@ -146,7 +157,7 @@ export function Sidebar() {
             </Tooltip>
           </Flex>
 
-          <Stack px='2' gap='0' flex='1' overflowY='auto'>
+          <Stack px='2' gap='0' flex='1' overflowY='auto' ref={conversationsListRef}>
             <HStack
               position='relative'
               className='group'
@@ -215,6 +226,7 @@ export function Sidebar() {
                 {conversations.map((conv) => (
                   <HStack
                     key={conv.id}
+                    data-conversation-id={conv.id}
                     position='relative'
                     className='group'
                     _hover={{
