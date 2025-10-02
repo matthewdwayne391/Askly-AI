@@ -17,7 +17,7 @@ export function BottomSection() {
         mx='auto'
         lineHeight='1.4'
       >
-        ChatGPT قد يرتكب أخطاء. تحقق من المعلومات المهمة.
+        Askly-AI قد يرتكب أخطاء. تحقق من المعلومات المهمة.
       </Center>
     </Box>
   );

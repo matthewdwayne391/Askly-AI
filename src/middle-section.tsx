@@ -245,7 +245,7 @@ export function MiddleSection() {
             >
               <Textarea
                 ref={textareaRef}
-                placeholder='أرسل رسالة إلى ChatGPT'
+                placeholder='أرسل رسالة إلى Askly-AI'
                 variant='subtle'
                 size={{ base: 'md', md: 'lg' }}
                 borderRadius='3xl'
@@ -454,7 +454,7 @@ export function MiddleSection() {
             }
           >
             <Textarea
-              placeholder='أرسل رسالة إلى ChatGPT'
+              placeholder='أرسل رسالة إلى Askly-AI'
               variant='subtle'
               size={{ base: 'md', md: 'lg' }}
               borderRadius='3xl'
