@@ -88,6 +88,20 @@ The application requires a Google Gemini API key to function:
 
 ## Recent Changes
 
+### October 2, 2025 - Cleaned AI Responses from Technical Details
+- Added `cleanResponse()` function to filter out technical details from Gemini responses
+- Removed technical metadata like `tool_code`, `thought`, `queries`, and code blocks from user-facing responses
+- Updated system prompt to instruct Gemini not to display technical implementation details
+- Changed model from `gemini-2.5-flash` to `gemini-2.0-flash-exp` for better performance
+- Removed Google Search grounding tool to prevent technical details from appearing
+
+### October 2, 2025 - Fixed Sidebar RTL Position
+- Fixed sidebar to appear on the right side (RTL layout) instead of left
+- Changed sidebar position from `left: 0` to `right: 0`
+- Updated transform animations to slide from right instead of left
+- Changed content margin from `marginLeft` to `marginRight`
+- Changed border from `borderRight` to `borderLeft` for proper RTL styling
+
 ### October 2, 2025 - Fixed Sidebar Sticky Behavior
 - Fixed sidebar positioning issue where it wouldn't stay visible when scrolling through long conversations
 - Changed sidebar from `position: relative` to `position: fixed` on desktop screens

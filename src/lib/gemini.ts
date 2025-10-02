@@ -14,10 +14,6 @@ export interface Message {
   content: string;
 }
 
-const groundingTool = {
-  googleSearch: {},
-};
-
 // Professional system prompt for organized responses
 const systemPrompt = `أنت مساعد ذكي محترف. اتبع هذه القواعد بدقة في جميع إجاباتك:
 
@@ -29,15 +25,41 @@ const systemPrompt = `أنت مساعد ذكي محترف. اتبع هذه ال�
 6. اذكر التفاصيل المهمة بشكل منظم ومرقم
 7. استخدم فقط النص العادي والأرقام للتنظيم
 8. اختتم بملخص واضح إذا كان السؤال معقد
+9. لا تعرض أي تفاصيل تقنية مثل tool_code أو thought أو queries في إجابتك
+10. قدم فقط الإجابة النهائية النظيفة للمستخدم
 
 تذكر: لا تستخدم أي رموز تنسيق إطلاقاً، فقط النص العادي والأرقام.`;
 
-// Updated function with Google Search grounding
+// دالة لتنظيف الاستجابة من التفاصيل التقنية
+function cleanResponse(text: string): string {
+  // إزالة أي نص يحتوي على tool_code, thought, queries, وأي كود تقني
+  let cleaned = text;
+  
+  // إزالة الأسطر التي تحتوي على tool_code أو thought أو queries
+  const lines = cleaned.split('\n');
+  const filteredLines = lines.filter(line => {
+    const lowerLine = line.toLowerCase();
+    return !lowerLine.includes('tool_code') && 
+           !lowerLine.includes('thought') && 
+           !lowerLine.includes('queries') &&
+           !lowerLine.includes('google_search') &&
+           !lowerLine.includes('print(') &&
+           !line.trim().startsWith('```') &&
+           !line.includes('=[');
+  });
+  
+  cleaned = filteredLines.join('\n').trim();
+  
+  // إزالة أي نص بين علامات ``` إذا كان يحتوي على كود Python/JavaScript
+  cleaned = cleaned.replace(/```[\s\S]*?```/g, '');
+  
+  return cleaned;
+}
+
 export async function askGemini(query: string): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.5-flash',
-      tools: [groundingTool],
+      model: 'gemini-2.0-flash-exp',
       systemInstruction: systemPrompt
     });
     
@@ -45,9 +67,9 @@ export async function askGemini(query: string): Promise<string> {
     const response = result.response;
     const text = response.text();
     
-    return text;
+    return cleanResponse(text);
   } catch (error) {
-    console.error('Error calling Gemini API with grounding:', error);
+    console.error('Error calling Gemini API:', error);
     throw new Error(`Failed to get response from Gemini: ${error}`);
   }
 }
@@ -55,7 +77,7 @@ export async function askGemini(query: string): Promise<string> {
 export async function sendMessageToGemini(message: string): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.5-flash-lite',
+      model: 'gemini-2.0-flash-exp',
       systemInstruction: systemPrompt
     });
     
@@ -63,7 +85,7 @@ export async function sendMessageToGemini(message: string): Promise<string> {
     const response = result.response;
     const text = response.text();
     
-    return text;
+    return cleanResponse(text);
   } catch (error) {
     console.error('Error calling Gemini API:', error);
     throw new Error(`Failed to get response from Gemini: ${error}`);
@@ -73,8 +95,7 @@ export async function sendMessageToGemini(message: string): Promise<string> {
 export async function sendChatToGemini(messages: Message[]): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.5-flash',
-      tools: [groundingTool],
+      model: 'gemini-2.0-flash-exp',
       systemInstruction: systemPrompt
     });
     
@@ -89,7 +110,7 @@ export async function sendChatToGemini(messages: Message[]): Promise<string> {
     const result = await chat.sendMessage(lastMessage.content);
     const text = result.response.text();
     
-    return text;
+    return cleanResponse(text);
   } catch (error) {
     console.error('Error calling Gemini API:', error);
     throw new Error(`Failed to get response from Gemini: ${error}`);
