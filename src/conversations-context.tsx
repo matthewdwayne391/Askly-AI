@@ -27,9 +27,23 @@ export function ConversationsProvider({ children }: { children: ReactNode }) {
 
   const createNewConversation = (isTemporary = false) => {
     const now = new Date();
+    
+    const getTimeString = (d: Date) => {
+      const hours = d.getHours();
+      const minutes = d.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const hours12 = hours % 12 || 12;
+      const minutesStr = minutes.toString().padStart(2, '0');
+      return `${hours12}:${minutesStr} ${ampm}`;
+    };
+    
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const timeStr = getTimeString(now);
+    
     const title = isTemporary 
-      ? `محادثة مؤقتة - ${now.toLocaleString('ar-SA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`
-      : `محادثة جديدة - ${now.toLocaleString('ar-SA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+      ? `محادثة مؤقتة - ${month}/${day} ${timeStr}`
+      : `محادثة جديدة - ${month}/${day} ${timeStr}`;
     
     const newConv: Conversation = {
       id: Date.now().toString(),
