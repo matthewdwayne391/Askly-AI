@@ -245,7 +245,7 @@ export function MiddleSection() {
             >
               <Textarea
                 ref={textareaRef}
-                placeholder='أرسل رسالة إلى ChatGPT'
+                placeholder='أرسل رسالة إلى Askly-AI'
                 variant='subtle'
                 size={{ base: 'md', md: 'lg' }}
                 borderRadius='3xl'
@@ -454,7 +454,7 @@ export function MiddleSection() {
             }
           >
             <Textarea
-              placeholder='أرسل رسالة إلى ChatGPT'
+              placeholder='أرسل رسالة إلى Askly-AI'
               variant='subtle'
               size={{ base: 'md', md: 'lg' }}
               borderRadius='3xl'
@@ -469,6 +469,14 @@ export function MiddleSection() {
               rows={1}
             />
           </InputGroup>
+          <Text 
+            fontSize={{ base: 'xs', md: 'sm' }} 
+            color='fg.subtle' 
+            textAlign='center' 
+            mt='2'
+          >
+            Askly-AI قد يرتكب أخطاء. تحقق من المعلومات المهمة.
+          </Text>
         </Box>
       </Box>
     </Box>
