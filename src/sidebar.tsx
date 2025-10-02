@@ -126,15 +126,15 @@ export function Sidebar() {
         maxW={{ base: '85vw', lg: 'none' }}
         position='fixed'
         top='0'
-        left='0'
+        right='0'
         h='100vh'
         zIndex={{ base: '1000', lg: '1000' }}
         overflow='hidden'
         transition='all 0.3s ease-in-out'
-        borderRight={{ base: sideBarVisible ? '1px solid' : 'none', lg: '1px solid' }}
+        borderLeft={{ base: sideBarVisible ? '1px solid' : 'none', lg: '1px solid' }}
         borderColor='border'
         transform={{ 
-          base: sideBarVisible ? 'translateX(0)' : 'translateX(-100%)', 
+          base: sideBarVisible ? 'translateX(0)' : 'translateX(100%)', 
           lg: 'none' 
         }}
       >

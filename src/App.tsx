@@ -23,8 +23,8 @@ function AppContent() {
         minH={{ base: '100vh', lg: 'auto' }}
         display='flex'
         flexDirection='column'
-        marginLeft={{ base: '0', lg: sideBarVisible ? '260px' : '0' }}
-        transition='margin-left 0.3s ease-in-out'
+        marginRight={{ base: '0', lg: sideBarVisible ? '260px' : '0' }}
+        transition='margin-right 0.3s ease-in-out'
       >
         <TopSection />
         <MiddleSection />
