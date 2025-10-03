@@ -9,17 +9,11 @@ import {
   VStack,
   HStack,
 } from '@chakra-ui/react';
-import {
-  FileUploadList,
-  FileUploadRoot,
-  FileUploadTrigger,
-} from './components/ui/file-button';
 import { InputGroup } from './components/ui/input-group';
 import {
   BulbIcon,
   CodeIcon,
   EnterIcon,
-  UploadIcon,
   SearchIcon,
   SummarizeIcon,
   WriteIcon,
@@ -224,14 +218,6 @@ export function MiddleSection() {
           <Box w='full' maxW='1200px' mx='auto'>
             <InputGroup
               w='full'
-              startElement={
-                <FileUploadRoot>
-                  <FileUploadTrigger asChild>
-                    <UploadIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg' />
-                  </FileUploadTrigger>
-                  <FileUploadList />
-                </FileUploadRoot>
-              }
               endElement={
                 <IconButton
                   size={{ base: 'sm', md: 'md' }}
@@ -434,14 +420,6 @@ export function MiddleSection() {
         <Box w='full' maxW='768px' mx='auto'>
           <InputGroup
             w='full'
-            startElement={
-              <FileUploadRoot>
-                <FileUploadTrigger asChild>
-                  <UploadIcon fontSize={{ base: 'xl', md: '2xl' }} color='fg' />
-                </FileUploadTrigger>
-                <FileUploadList />
-              </FileUploadRoot>
-            }
             endElement={
               <IconButton
                 size={{ base: 'sm', md: 'md' }}

@@ -88,6 +88,16 @@ The application requires a Google Gemini API key to function:
 
 ## Recent Changes
 
+### October 3, 2025 - Fixed Replit Environment Setup
+- Upgraded Chakra UI from v2.10.9 to v3.27.0 to match the component library requirements
+- Fixed provider configuration to use Chakra UI v3 API (`defaultSystem` instead of `extendTheme`)
+- Restored `ClientOnly` component from Chakra UI v3
+- Removed non-functional FileUpload components (Chakra UI v3 doesn't include these yet)
+- Cleared Vite cache and verified app loads correctly
+- App now displays properly with Arabic RTL interface
+- Development server running successfully on port 5000
+- Deployment configured for autoscale with proper build and preview commands
+
 ### October 2, 2025 - Added Model Selection Feature & Restored Google Search
 - Added model selection dropdown in "ميزات Askly-AI" menu allowing users to choose between AI models
 - Created `ModelContext` to manage selected model state globally
